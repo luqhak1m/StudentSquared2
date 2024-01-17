@@ -14,6 +14,18 @@
 		C9489A752B56D97E00F536FC /* StudentSquared2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A742B56D97E00F536FC /* StudentSquared2Tests.swift */; };
 		C9489A7F2B56D97E00F536FC /* StudentSquared2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A7E2B56D97E00F536FC /* StudentSquared2UITests.swift */; };
 		C9489A812B56D97E00F536FC /* StudentSquared2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A802B56D97E00F536FC /* StudentSquared2UITestsLaunchTests.swift */; };
+		C9489A8E2B56ED3A00F536FC /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A8D2B56ED3A00F536FC /* LoginView.swift */; };
+		C9489A922B58200B00F536FC /* RegisterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A912B58200B00F536FC /* RegisterOptions.swift */; };
+		C9489A942B58253C00F536FC /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A932B58253C00F536FC /* RegisterPage.swift */; };
+		C9489A962B58272500F536FC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A952B58272500F536FC /* CustomTextField.swift */; };
+		C9489A982B58277400F536FC /* AdminRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A972B58277400F536FC /* AdminRegisterView.swift */; };
+		C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */; };
+		C9489A9E2B583C1600F536FC /* LecturerRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */; };
+		C9489AA02B583C6900F536FC /* StudentRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */; };
+		C9489AA22B58478D00F536FC /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA12B58478D00F536FC /* MainMenuView.swift */; };
+		C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */; };
+		C9489AA62B5849E400F536FC /* ChangePasswordCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */; };
+		C9489AA82B584A2600F536FC /* ChangePasswordCreatePassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +56,18 @@
 		C9489A7A2B56D97E00F536FC /* StudentSquared2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentSquared2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9489A7E2B56D97E00F536FC /* StudentSquared2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSquared2UITests.swift; sourceTree = "<group>"; };
 		C9489A802B56D97E00F536FC /* StudentSquared2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSquared2UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C9489A8D2B56ED3A00F536FC /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C9489A912B58200B00F536FC /* RegisterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterOptions.swift; sourceTree = "<group>"; };
+		C9489A932B58253C00F536FC /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
+		C9489A952B58272500F536FC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		C9489A972B58277400F536FC /* AdminRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRegisterView.swift; sourceTree = "<group>"; };
+		C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffRegisterView.swift; sourceTree = "<group>"; };
+		C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LecturerRegisterView.swift; sourceTree = "<group>"; };
+		C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRegisterView.swift; sourceTree = "<group>"; };
+		C9489AA12B58478D00F536FC /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequestView.swift; sourceTree = "<group>"; };
+		C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCodeView.swift; sourceTree = "<group>"; };
+		C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCreatePassView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +120,18 @@
 			children = (
 				C9489A632B56D97D00F536FC /* StudentSquared2App.swift */,
 				C9489A652B56D97D00F536FC /* ContentView.swift */,
+				C9489A912B58200B00F536FC /* RegisterOptions.swift */,
+				C9489A8D2B56ED3A00F536FC /* LoginView.swift */,
+				C9489A972B58277400F536FC /* AdminRegisterView.swift */,
+				C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */,
+				C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */,
+				C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */,
+				C9489A952B58272500F536FC /* CustomTextField.swift */,
+				C9489A932B58253C00F536FC /* RegisterPage.swift */,
+				C9489AA12B58478D00F536FC /* MainMenuView.swift */,
+				C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */,
+				C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */,
+				C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */,
 				C9489A672B56D97E00F536FC /* Assets.xcassets */,
 				C9489A692B56D97E00F536FC /* Preview Content */,
 			);
@@ -257,8 +293,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9489A962B58272500F536FC /* CustomTextField.swift in Sources */,
+				C9489AA22B58478D00F536FC /* MainMenuView.swift in Sources */,
+				C9489A9E2B583C1600F536FC /* LecturerRegisterView.swift in Sources */,
+				C9489A8E2B56ED3A00F536FC /* LoginView.swift in Sources */,
+				C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */,
+				C9489A982B58277400F536FC /* AdminRegisterView.swift in Sources */,
+				C9489AA02B583C6900F536FC /* StudentRegisterView.swift in Sources */,
+				C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */,
+				C9489AA82B584A2600F536FC /* ChangePasswordCreatePassView.swift in Sources */,
+				C9489A922B58200B00F536FC /* RegisterOptions.swift in Sources */,
+				C9489A942B58253C00F536FC /* RegisterPage.swift in Sources */,
 				C9489A662B56D97D00F536FC /* ContentView.swift in Sources */,
 				C9489A642B56D97D00F536FC /* StudentSquared2App.swift in Sources */,
+				C9489AA62B5849E400F536FC /* ChangePasswordCodeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
