@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		241BF8522B70EDC300CBA0A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 241BF8512B70EDC300CBA0A0 /* GoogleService-Info.plist */; };
+		241BF8582B70EEFB00CBA0A0 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241BF8572B70EEFB00CBA0A0 /* AuthViewModel.swift */; };
+		2462D7552B70F3080039DB37 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2462D7542B70F3080039DB37 /* FirebaseAuth */; };
+		2462D7572B70F3080039DB37 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2462D7562B70F3080039DB37 /* FirebaseFirestore */; };
+		2462D7592B70F3080039DB37 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2462D7582B70F3080039DB37 /* FirebaseFirestoreSwift */; };
+		2462D75B2B70F3080039DB37 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2462D75A2B70F3080039DB37 /* FirebaseStorage */; };
+		2462D7622B70F5530039DB37 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7612B70F5530039DB37 /* User.swift */; };
+		2462D7642B7100CC0039DB37 /* StudentProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7632B7100CC0039DB37 /* StudentProfileView.swift */; };
 		C9489A642B56D97D00F536FC /* StudentSquared2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A632B56D97D00F536FC /* StudentSquared2App.swift */; };
 		C9489A662B56D97D00F536FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A652B56D97D00F536FC /* ContentView.swift */; };
 		C9489A682B56D97E00F536FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9489A672B56D97E00F536FC /* Assets.xcassets */; };
@@ -46,6 +54,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		241BF8512B70EDC300CBA0A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		241BF8572B70EEFB00CBA0A0 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		2462D7612B70F5530039DB37 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2462D7632B7100CC0039DB37 /* StudentProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentProfileView.swift; sourceTree = "<group>"; };
 		C9489A602B56D97D00F536FC /* StudentSquared2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentSquared2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9489A632B56D97D00F536FC /* StudentSquared2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSquared2App.swift; sourceTree = "<group>"; };
 		C9489A652B56D97D00F536FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -75,6 +87,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2462D7552B70F3080039DB37 /* FirebaseAuth in Frameworks */,
+				2462D75B2B70F3080039DB37 /* FirebaseStorage in Frameworks */,
+				2462D7572B70F3080039DB37 /* FirebaseFirestore in Frameworks */,
+				2462D7592B70F3080039DB37 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +111,75 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		241BF84B2B6AAF4A00CBA0A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C9489A912B58200B00F536FC /* RegisterOptions.swift */,
+				C9489A932B58253C00F536FC /* RegisterPage.swift */,
+				C9489AA12B58478D00F536FC /* MainMenuView.swift */,
+				C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */,
+				C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */,
+				C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */,
+				C9489A652B56D97D00F536FC /* ContentView.swift */,
+				C9489A8D2B56ED3A00F536FC /* LoginView.swift */,
+				C9489A972B58277400F536FC /* AdminRegisterView.swift */,
+				C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */,
+				C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */,
+				C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */,
+				2462D7632B7100CC0039DB37 /* StudentProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		241BF84C2B6AAF6300CBA0A0 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C9489A632B56D97D00F536FC /* StudentSquared2App.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		241BF84D2B6AAFC300CBA0A0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C9489A952B58272500F536FC /* CustomTextField.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		241BF8562B70EEB000CBA0A0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				241BF8572B70EEFB00CBA0A0 /* AuthViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2462D75C2B70F3780039DB37 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2462D75D2B70F38F0039DB37 /* Authentication */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2462D75D2B70F38F0039DB37 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				241BF84B2B6AAF4A00CBA0A0 /* View */,
+				241BF8562B70EEB000CBA0A0 /* ViewModel */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		2462D7602B70F53E0039DB37 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2462D7612B70F5530039DB37 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C9489A572B56D97D00F536FC = {
 			isa = PBXGroup;
 			children = (
@@ -118,21 +203,12 @@
 		C9489A622B56D97D00F536FC /* StudentSquared2 */ = {
 			isa = PBXGroup;
 			children = (
-				C9489A632B56D97D00F536FC /* StudentSquared2App.swift */,
-				C9489A652B56D97D00F536FC /* ContentView.swift */,
-				C9489A912B58200B00F536FC /* RegisterOptions.swift */,
-				C9489A8D2B56ED3A00F536FC /* LoginView.swift */,
-				C9489A972B58277400F536FC /* AdminRegisterView.swift */,
-				C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */,
-				C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */,
-				C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */,
-				C9489A952B58272500F536FC /* CustomTextField.swift */,
-				C9489A932B58253C00F536FC /* RegisterPage.swift */,
-				C9489AA12B58478D00F536FC /* MainMenuView.swift */,
-				C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */,
-				C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */,
-				C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */,
+				2462D7602B70F53E0039DB37 /* Model */,
+				2462D75C2B70F3780039DB37 /* Core */,
+				241BF84D2B6AAFC300CBA0A0 /* Components */,
+				241BF84C2B6AAF6300CBA0A0 /* App */,
 				C9489A672B56D97E00F536FC /* Assets.xcassets */,
+				241BF8512B70EDC300CBA0A0 /* GoogleService-Info.plist */,
 				C9489A692B56D97E00F536FC /* Preview Content */,
 			);
 			path = StudentSquared2;
@@ -179,6 +255,12 @@
 			dependencies = (
 			);
 			name = StudentSquared2;
+			packageProductDependencies = (
+				2462D7542B70F3080039DB37 /* FirebaseAuth */,
+				2462D7562B70F3080039DB37 /* FirebaseFirestore */,
+				2462D7582B70F3080039DB37 /* FirebaseFirestoreSwift */,
+				2462D75A2B70F3080039DB37 /* FirebaseStorage */,
+			);
 			productName = StudentSquared2;
 			productReference = C9489A602B56D97D00F536FC /* StudentSquared2.app */;
 			productType = "com.apple.product-type.application";
@@ -242,7 +324,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C9489A5B2B56D97D00F536FC /* Build configuration list for PBXProject "StudentSquared2" */;
+			buildConfigurationList = C9489A5B2B56D97D00F536FC /* Build configuration list for PBXProject "StudentSquared" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -251,6 +333,9 @@
 				Base,
 			);
 			mainGroup = C9489A572B56D97D00F536FC;
+			packageReferences = (
+				2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = C9489A612B56D97D00F536FC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -269,6 +354,7 @@
 			files = (
 				C9489A6B2B56D97E00F536FC /* Preview Assets.xcassets in Resources */,
 				C9489A682B56D97E00F536FC /* Assets.xcassets in Resources */,
+				241BF8522B70EDC300CBA0A0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +383,10 @@
 				C9489AA22B58478D00F536FC /* MainMenuView.swift in Sources */,
 				C9489A9E2B583C1600F536FC /* LecturerRegisterView.swift in Sources */,
 				C9489A8E2B56ED3A00F536FC /* LoginView.swift in Sources */,
+				2462D7622B70F5530039DB37 /* User.swift in Sources */,
 				C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */,
+				2462D7642B7100CC0039DB37 /* StudentProfileView.swift in Sources */,
+				241BF8582B70EEFB00CBA0A0 /* AuthViewModel.swift in Sources */,
 				C9489A982B58277400F536FC /* AdminRegisterView.swift in Sources */,
 				C9489AA02B583C6900F536FC /* StudentRegisterView.swift in Sources */,
 				C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */,
@@ -470,6 +559,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudentSquared2/Preview Content\"";
+				DEVELOPMENT_TEAM = UXT7L3C9DT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -498,6 +588,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudentSquared2/Preview Content\"";
+				DEVELOPMENT_TEAM = UXT7L3C9DT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -593,7 +684,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C9489A5B2B56D97D00F536FC /* Build configuration list for PBXProject "StudentSquared2" */ = {
+		C9489A5B2B56D97D00F536FC /* Build configuration list for PBXProject "StudentSquared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C9489A822B56D97E00F536FC /* Debug */,
@@ -630,6 +721,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.20.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2462D7542B70F3080039DB37 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		2462D7562B70F3080039DB37 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		2462D7582B70F3080039DB37 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		2462D75A2B70F3080039DB37 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C9489A582B56D97D00F536FC /* Project object */;
 }

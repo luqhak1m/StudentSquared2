@@ -11,6 +11,7 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         
@@ -65,12 +66,14 @@ struct LoginView: View {
                     }
                     
 
-                    
+                     
                     Button(action: {
-                                    // Handle login logic here
+                        // Handle login logic here
+                        print("Log User in")
+                        Task {
+                            try await viewModel.signIn(withEmail: email, password: password)
+                        }
                     }) {
-                        
-                        
                         Text("Login")
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)

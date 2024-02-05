@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDktLvhHmmCMVwQ8jwiR4X1ex4yrXMMstA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>456559895241</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>luq.StudentSquared2</string>
+	<key>PROJECT_ID</key>
+	<string>studentsquared-dce86</string>
+	<key>STORAGE_BUCKET</key>
+	<string>studentsquared-dce86.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:456559895241:ios:4ca476ee9f44375b012318</string>
+</dict>
+</plist>
