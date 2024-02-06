@@ -30,6 +30,8 @@ class AuthViewModel: ObservableObject {
     @Published var currentUser: User?
     @Published var currentStudent: Student?
     @Published var currentStaff: Staff?
+    @Published var isUserSignedOut = false // Add a flag to track user sign-out
+    @Published var isUserRegistered: Bool = false
     
     init() {
         self.userSession = Auth.auth().currentUser
@@ -122,9 +124,21 @@ class AuthViewModel: ObservableObject {
                 let encodedStaff = try Firestore.Encoder().encode(staff)
                 try await Firestore.firestore().collection("staff").document(staff.id).setData(encodedStaff)
                 print("Storing staff data..")
-                //await fetchStaff()
+                
+                // Check if the staff's position is a lecturer or an admin
+                switch position.lowercased() {
+               case "lecturer":
+                   // Store the staff ID in the "lecturers" collection
+                   try await Firestore.firestore().collection("lecturer").document(staff.id).setData(["staffID": staffID])
+                   print("Storing lecturer data..")
+               case "admin":
+                   // Store the staff ID in the "admins" collection
+                   try await Firestore.firestore().collection("admin").document(staff.id).setData(["staffID": staffID])
+                   print("Storing admin data..")
+               default:
+                   break // Do nothing for other positions
+               }
             }
-            
             // Fetch user data
             //await fetchUser()
         } catch {
@@ -202,8 +216,8 @@ class AuthViewModel: ObservableObject {
             }
             
             print("User data not found.")
-            // If user data is not found, set currentUser to nil
-            self.currentUser = nil
+            forceSignOutUser()
+            //self.currentUser = nil
         } catch {
             print("Error fetching user data: \(error.localizedDescription)")
         }
@@ -249,6 +263,20 @@ class AuthViewModel: ObservableObject {
         // Assuming staff data is stored in a "staff" collection
         guard let snapshot = try? await Firestore.firestore().collection("staff").document(uid).getDocument() else { return }
         self.currentStaff = try? snapshot.data(as: Staff.self)
+    }
+
+    // Call this function wherever you want to force sign out the user
+    func forceSignOutUser() {
+        do {
+            try Auth.auth().signOut()
+            self.userSession = nil
+            self.currentUser = nil
+            self.currentStudent = nil
+            self.currentStaff = nil
+            self.isUserSignedOut = true
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError)")
+        }
     }
     
     // Fetch user function for students

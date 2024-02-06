@@ -30,9 +30,7 @@
 		C9489A922B58200B00F536FC /* RegisterOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A912B58200B00F536FC /* RegisterOptions.swift */; };
 		C9489A942B58253C00F536FC /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A932B58253C00F536FC /* RegisterPage.swift */; };
 		C9489A962B58272500F536FC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A952B58272500F536FC /* CustomTextField.swift */; };
-		C9489A982B58277400F536FC /* AdminRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A972B58277400F536FC /* AdminRegisterView.swift */; };
 		C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */; };
-		C9489A9E2B583C1600F536FC /* LecturerRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */; };
 		C9489AA02B583C6900F536FC /* StudentRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */; };
 		C9489AA22B58478D00F536FC /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA12B58478D00F536FC /* MainMenuView.swift */; };
 		C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */; };
@@ -87,9 +85,7 @@
 		C9489A912B58200B00F536FC /* RegisterOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterOptions.swift; sourceTree = "<group>"; };
 		C9489A932B58253C00F536FC /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
 		C9489A952B58272500F536FC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		C9489A972B58277400F536FC /* AdminRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRegisterView.swift; sourceTree = "<group>"; };
 		C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffRegisterView.swift; sourceTree = "<group>"; };
-		C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LecturerRegisterView.swift; sourceTree = "<group>"; };
 		C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRegisterView.swift; sourceTree = "<group>"; };
 		C9489AA12B58478D00F536FC /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequestView.swift; sourceTree = "<group>"; };
@@ -144,9 +140,7 @@
 				C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */,
 				C9489A652B56D97D00F536FC /* ContentView.swift */,
 				C9489A8D2B56ED3A00F536FC /* LoginView.swift */,
-				C9489A972B58277400F536FC /* AdminRegisterView.swift */,
 				C9489A9B2B583BD500F536FC /* StaffRegisterView.swift */,
-				C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */,
 				C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */,
 				2462D7632B7100CC0039DB37 /* StudentProfileView.swift */,
 				2462D7692B723C590039DB37 /* StaffProfileView.swift */,
@@ -417,7 +411,6 @@
 				2462D7682B71EDDA0039DB37 /* Staff.swift in Sources */,
 				C9489A962B58272500F536FC /* CustomTextField.swift in Sources */,
 				C9489AA22B58478D00F536FC /* MainMenuView.swift in Sources */,
-				C9489A9E2B583C1600F536FC /* LecturerRegisterView.swift in Sources */,
 				C9489A8E2B56ED3A00F536FC /* LoginView.swift in Sources */,
 				2462D7622B70F5530039DB37 /* User.swift in Sources */,
 				C9F7C6202B72936F005B8CAA /* MeritDetails.swift in Sources */,
