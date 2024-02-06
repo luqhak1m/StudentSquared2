@@ -37,6 +37,13 @@
 		C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */; };
 		C9489AA62B5849E400F536FC /* ChangePasswordCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */; };
 		C9489AA82B584A2600F536FC /* ChangePasswordCreatePassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */; };
+		C9F7C61A2B729350005B8CAA /* BottomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F7C6192B729350005B8CAA /* BottomNavigationBar.swift */; };
+		C9F7C6202B72936F005B8CAA /* MeritDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F7C61B2B72936F005B8CAA /* MeritDetails.swift */; };
+		C9F7C6212B72936F005B8CAA /* GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F7C61C2B72936F005B8CAA /* GenerateQRCode.swift */; };
+		C9F7C6222B72936F005B8CAA /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F7C61D2B72936F005B8CAA /* QRCodeView.swift */; };
+		C9F7C6232B72936F005B8CAA /* ScanQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F7C61E2B72936F005B8CAA /* ScanQRView.swift */; };
+		C9F7C6242B72936F005B8CAA /* MeritCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F7C61F2B72936F005B8CAA /* MeritCategory.swift */; };
+		C9F7C6272B7295EF005B8CAA /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = C9F7C6262B7295EF005B8CAA /* CodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +93,12 @@
 		C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequestView.swift; sourceTree = "<group>"; };
 		C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCodeView.swift; sourceTree = "<group>"; };
 		C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCreatePassView.swift; sourceTree = "<group>"; };
+		C9F7C6192B729350005B8CAA /* BottomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationBar.swift; sourceTree = "<group>"; };
+		C9F7C61B2B72936F005B8CAA /* MeritDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeritDetails.swift; sourceTree = "<group>"; };
+		C9F7C61C2B72936F005B8CAA /* GenerateQRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateQRCode.swift; sourceTree = "<group>"; };
+		C9F7C61D2B72936F005B8CAA /* QRCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		C9F7C61E2B72936F005B8CAA /* ScanQRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanQRView.swift; sourceTree = "<group>"; };
+		C9F7C61F2B72936F005B8CAA /* MeritCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeritCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +110,7 @@
 				2462D75B2B70F3080039DB37 /* FirebaseStorage in Frameworks */,
 				2462D7572B70F3080039DB37 /* FirebaseFirestore in Frameworks */,
 				2462D7592B70F3080039DB37 /* FirebaseFirestoreSwift in Frameworks */,
+				C9F7C6272B7295EF005B8CAA /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +148,11 @@
 				C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */,
 				2462D7632B7100CC0039DB37 /* StudentProfileView.swift */,
 				2462D7692B723C590039DB37 /* StaffProfileView.swift */,
+				C9F7C61C2B72936F005B8CAA /* GenerateQRCode.swift */,
+				C9F7C61F2B72936F005B8CAA /* MeritCategory.swift */,
+				C9F7C61B2B72936F005B8CAA /* MeritDetails.swift */,
+				C9F7C61D2B72936F005B8CAA /* QRCodeView.swift */,
+				C9F7C61E2B72936F005B8CAA /* ScanQRView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -149,6 +168,7 @@
 		241BF84D2B6AAFC300CBA0A0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C9F7C6192B729350005B8CAA /* BottomNavigationBar.swift */,
 				C9489A952B58272500F536FC /* CustomTextField.swift */,
 			);
 			path = Components;
@@ -269,6 +289,7 @@
 				2462D7562B70F3080039DB37 /* FirebaseFirestore */,
 				2462D7582B70F3080039DB37 /* FirebaseFirestoreSwift */,
 				2462D75A2B70F3080039DB37 /* FirebaseStorage */,
+				C9F7C6262B7295EF005B8CAA /* CodeScanner */,
 			);
 			productName = StudentSquared2;
 			productReference = C9489A602B56D97D00F536FC /* StudentSquared2.app */;
@@ -344,6 +365,7 @@
 			mainGroup = C9489A572B56D97D00F536FC;
 			packageReferences = (
 				2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C9F7C6252B7295EF005B8CAA /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = C9489A612B56D97D00F536FC /* Products */;
 			projectDirPath = "";
@@ -388,24 +410,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F7C6212B72936F005B8CAA /* GenerateQRCode.swift in Sources */,
 				2462D7682B71EDDA0039DB37 /* Staff.swift in Sources */,
 				C9489A962B58272500F536FC /* CustomTextField.swift in Sources */,
 				C9489AA22B58478D00F536FC /* MainMenuView.swift in Sources */,
 				C9489A9E2B583C1600F536FC /* LecturerRegisterView.swift in Sources */,
 				C9489A8E2B56ED3A00F536FC /* LoginView.swift in Sources */,
 				2462D7622B70F5530039DB37 /* User.swift in Sources */,
+				C9F7C6202B72936F005B8CAA /* MeritDetails.swift in Sources */,
 				C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */,
 				2462D7642B7100CC0039DB37 /* StudentProfileView.swift in Sources */,
 				241BF8582B70EEFB00CBA0A0 /* AuthViewModel.swift in Sources */,
 				2462D76A2B723C590039DB37 /* StaffProfileView.swift in Sources */,
+				C9F7C6222B72936F005B8CAA /* QRCodeView.swift in Sources */,
 				C9489A982B58277400F536FC /* AdminRegisterView.swift in Sources */,
 				C9489AA02B583C6900F536FC /* StudentRegisterView.swift in Sources */,
+				C9F7C61A2B729350005B8CAA /* BottomNavigationBar.swift in Sources */,
 				C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */,
+				C9F7C6242B72936F005B8CAA /* MeritCategory.swift in Sources */,
 				C9489AA82B584A2600F536FC /* ChangePasswordCreatePassView.swift in Sources */,
 				C9489A922B58200B00F536FC /* RegisterOptions.swift in Sources */,
 				2462D7662B71EC120039DB37 /* Student.swift in Sources */,
 				C9489A942B58253C00F536FC /* RegisterPage.swift in Sources */,
 				C9489A662B56D97D00F536FC /* ContentView.swift in Sources */,
+				C9F7C6232B72936F005B8CAA /* ScanQRView.swift in Sources */,
 				C9489A642B56D97D00F536FC /* StudentSquared2App.swift in Sources */,
 				C9489AA62B5849E400F536FC /* ChangePasswordCodeView.swift in Sources */,
 			);
@@ -571,20 +599,22 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudentSquared2/Preview Content\"";
-				DEVELOPMENT_TEAM = UXT7L3C9DT;
+				DEVELOPMENT_TEAM = VT8XD2QY8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera permission to scan QR code.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = luq.StudentSquared2;
+				PRODUCT_BUNDLE_IDENTIFIER = luq.StudentSquared2TSE2101;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -600,20 +630,22 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudentSquared2/Preview Content\"";
-				DEVELOPMENT_TEAM = UXT7L3C9DT;
+				DEVELOPMENT_TEAM = VT8XD2QY8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera permission to scan QR code.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = luq.StudentSquared2;
+				PRODUCT_BUNDLE_IDENTIFIER = luq.StudentSquared2TSE2101;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -743,6 +775,14 @@
 				minimumVersion = 10.20.0;
 			};
 		};
+		C9F7C6252B7295EF005B8CAA /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -765,6 +805,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2462D7532B70F3080039DB37 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		C9F7C6262B7295EF005B8CAA /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9F7C6252B7295EF005B8CAA /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
