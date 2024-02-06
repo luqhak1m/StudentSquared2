@@ -14,6 +14,7 @@ struct ScanQR: View {
     @State private var isPresentingScanner = false
     @State private var isPresentingImagePicker = false
     @State private var scannedCode: String?
+    @State private var scannedQRCodeModel: QRCodeModel? = nil
     
     var body: some View {
         VStack {
@@ -64,7 +65,28 @@ struct ScanQR: View {
             }
             
             if let scannedCode = scannedCode {
-                Text("Scanned code is: \(scannedCode)")
+                Button(action: {
+                    print(scannedCode)
+                   QRCodeModel.matchScannedQRCodeID(with: scannedCode) { result, error in
+                       
+                       if let qrCodeModel = result {
+                           self.scannedQRCodeModel = qrCodeModel
+                           print(scannedQRCodeModel?.encodedString ?? "hi")
+                           // Here, you can update the UI or perform further actions with the fetched QRCodeModel instance
+                       } else if let error = error {
+                           print("Error fetching QR code data: \(error.localizedDescription)")
+                       } else {
+                           print("No QR code data found for ID: \(scannedCode)")
+                       }
+                   }
+               }) {
+                   Text("Fetch QR Code Details")
+                       .font(.title2)
+                       .padding()
+                       .background(Color.blue)
+                       .foregroundColor(.white)
+                       .cornerRadius(10)
+               }
             }
             
             Spacer()
@@ -101,6 +123,8 @@ struct ScanQR: View {
         }
     }
 }
+
+
 
 struct ImagePickerView: UIViewControllerRepresentable {
     var completion: (UIImage) -> Void
@@ -147,6 +171,8 @@ enum QRCodeError: Error {
     case invalidImage
     case noQRCodeFound
 }
+
+
 
 struct ScanQR_Previews: PreviewProvider {
   static var previews: some View {

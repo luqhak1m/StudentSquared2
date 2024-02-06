@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 enum RegistrationError: Error {
@@ -157,7 +158,7 @@ class AuthViewModel: ObservableObject {
     }
     
     func deleteAccount(){
-        
+        print("look ma")
     }
     
     func fetchUser() async {
@@ -280,4 +281,5 @@ class AuthViewModel: ObservableObject {
         
         //print("DEBUG: Current user is \(self.currentUser)")
     }*/
+
 }

@@ -19,10 +19,8 @@ struct GenerateQRCode: View {
     @State private var startTime: Date = Date()
     @State private var endTime: Date = Date()
     @State private var remarks: String = ""
-    @State private var isNavigationActive: Bool = false
     @State private var isQRCodeSheetPresented = false
     @State private var qrCodeSheetContent: AnyView? = nil
-    
     
     var buttonText: String {
             if isCategorySelected {
@@ -71,10 +69,15 @@ struct GenerateQRCode: View {
         
     
     var body: some View {
+        
         NavigationView{
+            
+            
             ZStack {
-     
+                
+                
                 VStack(spacing: 15) {
+                    
                     Image("ScanQR") // Replace with your actual QR code image
                         .resizable()
                         .scaledToFit()
@@ -174,17 +177,23 @@ struct GenerateQRCode: View {
                     // Add your input field here for "Points"
                   // Add your larger input field or text area here for "Remarks"
                 }
-                    
+                // .environmentObject(AuthViewModel())
                 Button(action: {
                     // Debugging: Print the combined information to check its value
-                    print("Combined Information: \(combinedInformation)")
+                    // print("Combined Information: \(combinedInformation)")
                     
                     // Handle QR code generation logic here
                     // You can use the combinedInformation property to generate the QR code
                     // Add your QR code generation code here
-                    print(combinedInformation)
-                    qrCodeSheetContent = AnyView(QRCodeView(url: combinedInformation))
+                    // print(combinedInformation)
+                    
                     isQRCodeSheetPresented=true
+                    // viewModel.deleteAccount()
+                    let qrCodeData = QRCodeModel(category: selectedCategory, points: selectedPoints, startDate: startDate, endDate: endDate, startTime: startTime, endTime: endTime, remarks: remarks)
+                    // qrCodeData.saveQRCodeDataToFirestore()
+                    print(qrCodeData.id)
+                    qrCodeSheetContent = AnyView(QRCodeView(url: qrCodeData.id))
+
                 }) {
                     Text("Generate") // Button text
                         .font(Font.custom("Outfit", size: 18).weight(.semibold))
@@ -227,93 +236,6 @@ struct CategorySelectionView: View {
             .padding()
     }
 }
-
-struct FormField: View {
-    var label: String
-    var placeholder: String
-    var isDateField: Bool = false
-    var isTimeField: Bool = false
-    var isLargeField: Bool = false
-    
-    @Binding var text: String
-    @Binding var date: Date?
-    @Binding var time: Date?
-    
-    // For text fields
-    init(label: String, placeholder: String, text: Binding<String>, isLargeField: Bool = false) {
-        self.label = label
-        self.placeholder = placeholder
-        self._text = text
-        self.isLargeField = isLargeField
-        self.isDateField = false
-        self.isTimeField = false
-        self._date = .constant(nil)
-        self._time = .constant(nil)
-    }
-    
-    // For date fields
-    init(label: String, placeholder: String, date: Binding<Date?>) {
-        self.label = label
-        self.placeholder = placeholder
-        self.isDateField = true
-        self.isTimeField = false
-        self.isLargeField = false
-        self._text = .constant("")
-        self._date = date
-        self._time = .constant(nil)
-    }
-    
-    // For time fields
-    init(label: String, placeholder: String, time: Binding<Date?>) {
-        self.label = label
-        self.placeholder = placeholder
-        self.isDateField = false
-        self.isTimeField = true
-        self.isLargeField = false
-        self._text = .constant("")
-        self._date = .constant(nil)
-        self._time = time
-    }
-    
-    var body: some View {
-        HStack {
-            Text(label)
-                .font(Font.custom("Outfit", size: 18).weight(.semibold))
-                .foregroundColor(label.contains("*") ? Color.red : .black)
-                .padding(.leading, 20)
-            
-            Spacer()
-            
-            if isDateField || isTimeField {
-                if isDateField {
-                    DatePicker("", selection: Binding(
-                        get: { date ?? Date() },
-                        set: { date = $0 }
-                    ), displayedComponents: .date)
-                } else if isTimeField {
-                    DatePicker("", selection: Binding(
-                        get: { time ?? Date() },
-                        set: { time = $0 }
-                    ), displayedComponents: .hourAndMinute)
-                }
-            } else {
-                TextField(placeholder, text: $text)
-                    .font(Font.custom("Outfit", size: 15))
-                    .foregroundColor(.black)
-                    .padding(.trailing, 20)
-            }
-        }
-        .frame(height: isLargeField ? 100 : 50)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(.black, lineWidth: 0.50)
-        )
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-    }
-}
-
-
 
 #Preview {
     GenerateQRCode()
