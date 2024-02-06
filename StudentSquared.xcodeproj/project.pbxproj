@@ -15,6 +15,9 @@
 		2462D75B2B70F3080039DB37 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2462D75A2B70F3080039DB37 /* FirebaseStorage */; };
 		2462D7622B70F5530039DB37 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7612B70F5530039DB37 /* User.swift */; };
 		2462D7642B7100CC0039DB37 /* StudentProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7632B7100CC0039DB37 /* StudentProfileView.swift */; };
+		2462D7662B71EC120039DB37 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7652B71EC120039DB37 /* Student.swift */; };
+		2462D7682B71EDDA0039DB37 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7672B71EDDA0039DB37 /* Staff.swift */; };
+		2462D76A2B723C590039DB37 /* StaffProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7692B723C590039DB37 /* StaffProfileView.swift */; };
 		C9489A642B56D97D00F536FC /* StudentSquared2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A632B56D97D00F536FC /* StudentSquared2App.swift */; };
 		C9489A662B56D97D00F536FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A652B56D97D00F536FC /* ContentView.swift */; };
 		C9489A682B56D97E00F536FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9489A672B56D97E00F536FC /* Assets.xcassets */; };
@@ -58,6 +61,9 @@
 		241BF8572B70EEFB00CBA0A0 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		2462D7612B70F5530039DB37 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2462D7632B7100CC0039DB37 /* StudentProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentProfileView.swift; sourceTree = "<group>"; };
+		2462D7652B71EC120039DB37 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		2462D7672B71EDDA0039DB37 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
+		2462D7692B723C590039DB37 /* StaffProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffProfileView.swift; sourceTree = "<group>"; };
 		C9489A602B56D97D00F536FC /* StudentSquared2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentSquared2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9489A632B56D97D00F536FC /* StudentSquared2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSquared2App.swift; sourceTree = "<group>"; };
 		C9489A652B56D97D00F536FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 				C9489A9D2B583C1600F536FC /* LecturerRegisterView.swift */,
 				C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */,
 				2462D7632B7100CC0039DB37 /* StudentProfileView.swift */,
+				2462D7692B723C590039DB37 /* StaffProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -176,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				2462D7612B70F5530039DB37 /* User.swift */,
+				2462D7652B71EC120039DB37 /* Student.swift */,
+				2462D7672B71EDDA0039DB37 /* Staff.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -379,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2462D7682B71EDDA0039DB37 /* Staff.swift in Sources */,
 				C9489A962B58272500F536FC /* CustomTextField.swift in Sources */,
 				C9489AA22B58478D00F536FC /* MainMenuView.swift in Sources */,
 				C9489A9E2B583C1600F536FC /* LecturerRegisterView.swift in Sources */,
@@ -387,11 +397,13 @@
 				C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */,
 				2462D7642B7100CC0039DB37 /* StudentProfileView.swift in Sources */,
 				241BF8582B70EEFB00CBA0A0 /* AuthViewModel.swift in Sources */,
+				2462D76A2B723C590039DB37 /* StaffProfileView.swift in Sources */,
 				C9489A982B58277400F536FC /* AdminRegisterView.swift in Sources */,
 				C9489AA02B583C6900F536FC /* StudentRegisterView.swift in Sources */,
 				C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */,
 				C9489AA82B584A2600F536FC /* ChangePasswordCreatePassView.swift in Sources */,
 				C9489A922B58200B00F536FC /* RegisterOptions.swift in Sources */,
+				2462D7662B71EC120039DB37 /* Student.swift in Sources */,
 				C9489A942B58253C00F536FC /* RegisterPage.swift in Sources */,
 				C9489A662B56D97D00F536FC /* ContentView.swift in Sources */,
 				C9489A642B56D97D00F536FC /* StudentSquared2App.swift in Sources */,

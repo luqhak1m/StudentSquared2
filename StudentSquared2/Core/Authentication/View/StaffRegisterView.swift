@@ -10,9 +10,7 @@ import SwiftUI
 
 struct StaffRegisterView: View {
     var body: some View {
-        RegisterPage(firstPlaceholder: "IDK", secondPlaceholder: "IDK", title: "Staff \nRegistration", actionTitle: "Register") {
-            // Define the action for registering an admin
-        }
+        RegisterPage(title: "Staff \nRegistration", actionTitle: "Register")
     }
 }
 

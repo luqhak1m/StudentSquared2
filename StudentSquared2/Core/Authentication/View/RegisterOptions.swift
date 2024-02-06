@@ -60,7 +60,7 @@ struct RegisterOptions: View{
                             .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
                     }
                     
-                    NavigationLink(destination: StudentRegisterView()) {
+                    NavigationLink(destination: RegisterPage(title: "Register as Student", actionTitle: "Register")) {
                         Text("Register as Student")
                             .foregroundColor(.black)
                             .frame(width: 210, height: 44)

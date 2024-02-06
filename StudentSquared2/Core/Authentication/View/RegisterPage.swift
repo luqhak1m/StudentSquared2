@@ -10,18 +10,23 @@ import SwiftUI
 
 struct RegisterPage: View {
     @State private var email = ""
-    //@State private var id = ""
+    @State private var id = ""
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var fullname = ""
+    @State private var year = ""
+    @State private var course = ""
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
     
-    var firstPlaceholder: String
+    /*var firstPlaceholder: String
     var secondPlaceholder: String
     var title: String
     var actionTitle: String
-    var action: () -> Void
+    var action: () -> Void*/
+    
+    var title: String
+    var actionTitle: String
 
     var body: some View {
         ZStack {
@@ -55,14 +60,16 @@ struct RegisterPage: View {
                 
 
                 // Logo, Title, and TextFields ...
-                //CustomTextField(placeholder: "User ID", text: $id, isSecure: false)
-                CustomTextField(placeholder: "Name", text: $fullname, isSecure: false)
-                CustomTextField(placeholder: "Email Address", text: $email, isSecure: false)
+                CustomTextField(placeholder: "Student ID", text: $id, isSecure: false)
                 CustomTextField(placeholder: "Password", text: $password, isSecure: false)
                 CustomTextField(placeholder: "Confirm Password", text: $confirmPassword, isSecure: false)
+                CustomTextField(placeholder: "Name", text: $fullname, isSecure: false)
+                CustomTextField(placeholder: "Email Address", text: $email, isSecure: false)
+                CustomTextField(placeholder: "Year", text: $year, isSecure: false)
+                CustomTextField(placeholder: "Course", text: $course, isSecure: false)
                 HStack {
                    Spacer() // Pushes the text to the middle
-                   Text("Password should be 8 minimum characters, at least 1 number, 1 special character, no Caps Lock")
+                   Text("Password should be 6 minimum characters, at least 1 number, 1 special character, no Caps Lock")
                    .font(.system(size: 9))
                    .font(.caption)
                    .foregroundColor(.gray)
@@ -75,7 +82,7 @@ struct RegisterPage: View {
                 // Register/Action button
                 Button{
                     Task {
-                        try await viewModel.createUser(withEmail: email, password:password,fullname:fullname)
+                       try await viewModel.createUser(withEmail: email, password: password, fullname: fullname, userType: .student, studentID: Int(id), year: Int(year), course: course, staffID: nil, position: nil, faculty: nil)
                     }
                 } label: {
                     HStack {
@@ -99,8 +106,6 @@ struct RegisterPage: View {
 
 struct RegisterPage_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterPage(firstPlaceholder: "Option 1", secondPlaceholder: "Option 2", title: "Registration", actionTitle: "Register") {
-            // Action for the registration button
-        }
+        RegisterPage(title: "Registration", actionTitle: "Register")
     }
 }
