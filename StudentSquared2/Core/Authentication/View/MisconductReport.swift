@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct MisconductReport: View {
-    @State private var selectedOption = "Option1" // Default value
+    @State private var selectedOption = "" // Default value
     @State private var selectedDate = Date() // Default to current date
     @State private var studentID = "" // Variable to hold the input text
-    @State private var misconductDetails = "" // Variable to hold the input text
+    @State private var misconductDetails: String = "" // Variable to hold the input text
     @State private var showImagePicker = false
     @State private var inputImage: UIImage?
     @State private var suggestedPoints = ""
+    @State private var agreement1: Bool = false
+    @State private var agreement2: Bool = false
+
     
     let options = ["Vandalism", "Academic Misconduct", "Dress Code", "Listens to The Weeknd"] // Your options here
 
@@ -33,31 +36,36 @@ struct MisconductReport: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-                .frame(width: 356,height: 35)
+                .frame(width: 322,height: 35)
                 .background(Color.white)
                 .cornerRadius(15)
                 .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
                 
-                VStack {
+                HStack {
+                    Text("Select Date")
+                        .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50)) // Adjust text color as needed
+                        .padding(.leading,-5) // Adjust padding to align text as needed within the rectangle
+                    
                     DatePicker(
-                        "Select Date",
+                        "",
                         selection: $selectedDate,
                         displayedComponents: .date
-                        
                     )
                     .datePickerStyle(CompactDatePickerStyle())
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
-                    .cornerRadius(15)
-                    .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
-                    //.padding(.horizontal)
-                }
-                .frame(width: 322, height: 35, alignment: .center)
+                    .labelsHidden() // Hide the default label to use the custom one
+                    .padding(.leading, 80) // Adjust padding to align text as needed within the rectangle
 
-                
+                }
+                .frame(maxWidth: .infinity)
+                // .padding(.horizontal) // Adjust or remove based on your layout needs
+                .background(Color.white)
+                .cornerRadius(15)
+                .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
+                .frame(width: 322, height: 35, alignment: .center) // Adjust the frame as needed
+
                 TextField("Provide Student ID", text: $studentID)
                     .padding(.horizontal) // Add padding inside the text field for the text
-                    .frame(height: 35)
+                    .frame(width: 322, height: 35)
                     .background(Color.white)
                     .cornerRadius(15)
                     .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
@@ -68,7 +76,7 @@ struct MisconductReport: View {
                 // Larger input field
                 TextField("Provide Details of Misconduct", text: $misconductDetails)
                     .padding(.horizontal) // Add padding inside the text field for the text
-                    .frame(height: 74)
+                    .frame(width: 322, height: 74)
                     .background(Color.white)
                     .cornerRadius(15)
                     .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
@@ -88,7 +96,7 @@ struct MisconductReport: View {
                         } else {
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color.white)
-                                .frame(height: 154)
+                                .frame(width: 322, height: 154)
                                 .overlay(
                                     Text("Tap to select image")
                                         .foregroundColor(.gray)
@@ -103,13 +111,44 @@ struct MisconductReport: View {
                 
                 TextField("Sugggested Demerit Points", text: $suggestedPoints)
                     .padding(.horizontal) // Add padding inside the text field for the text
-                    .frame(height: 35)
+                    .frame(width: 322, height: 35)
                     .background(Color.white)
                     .cornerRadius(15)
                     .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
                     .padding(.horizontal) // Add padding outside to conform to the UI design
+                
+                VStack{
+                    HStack {
+                        Image(systemName: agreement1 ? "checkmark.square.fill" : "square")
+                            .foregroundColor(agreement1 ? .blue : .gray)
+                            .onTapGesture {
+                                self.agreement1.toggle()                                
+                            }
+                        Text("I hereby declare that all the information provided in this report is true and accurate to the best of my knowledge.")
+                              .font(Font.custom("Raleway", size: 10).weight(.semibold))
+                              .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50));
+                        
+                    }.frame(width: 300, height: 25)
+                    
+                    HStack {
+                        Image(systemName: agreement2 ? "checkmark.square.fill" : "square")
+                            .foregroundColor(agreement2 ? .blue : .gray)
+                            .onTapGesture {
+                                self.agreement2.toggle()
+                            }
+                        Text("I understand that any intentional misrepresentation or dishonesty in this report may result in severe consequences, including disciplinary actions or legal measures")
+                              .font(Font.custom("Raleway", size: 10).weight(.semibold))
+                              .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50));
+                    }.frame(width: 300, height: 40)
+                }
+                
+                
                 // Submit button
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    let misconductData = MisconductReportModel(misconductType: selectedOption, date: selectedDate, studentID: Int(studentID), details: misconductDetails, demeritPoints: Int(suggestedPoints), agreement1: agreement1, agreement2: agreement2)
+                    
+                    misconductData.saveOrUpdateMisconductReport()
+                }, label: {
                     Text("Submit")
                         .foregroundColor(.white)
                       .frame(width: 186, height: 38)
@@ -118,6 +157,7 @@ struct MisconductReport: View {
                 })
             }
             .padding(.horizontal)
+            
         }
         .frame(width: 390, height: 730)
         .background(Color(red: 0.92, green: 0.90, blue: 0.97))
@@ -128,4 +168,10 @@ struct MisconductReport: View {
         // handle the selected image
     }
 
+}
+
+struct MisconductReport_Previews: PreviewProvider {
+  static var previews: some View {
+    MisconductReport()
+  }
 }

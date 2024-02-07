@@ -21,6 +21,8 @@ struct GenerateQRCode: View {
     @State private var remarks: String = ""
     @State private var isQRCodeSheetPresented = false
     @State private var qrCodeSheetContent: AnyView? = nil
+    @EnvironmentObject var viewModel: AuthViewModel
+
     
     var buttonText: String {
             if isCategorySelected {
@@ -70,7 +72,7 @@ struct GenerateQRCode: View {
     
     var body: some View {
         
-        NavigationView{
+
             
             
             ZStack {
@@ -186,13 +188,23 @@ struct GenerateQRCode: View {
                     // You can use the combinedInformation property to generate the QR code
                     // Add your QR code generation code here
                     // print(combinedInformation)
-                    
+                    if let staff = viewModel.currentStaff, viewModel.currentUser?.userType == .staff {
+                        // Now that we've confirmed the user is a staff, we can proceed with creating the QRCodeModel
+                        let qrCodeData = QRCodeModel(category: selectedCategory, points: selectedPoints, startDate: startDate, endDate: endDate, startTime: startTime, endTime: endTime, remarks: remarks, staffID: staff.staffID)
+                        
+                        print(qrCodeData.id)
+                        qrCodeSheetContent = AnyView(QRCodeView(url: qrCodeData.id))
+                        qrCodeData.saveQRCodeDataToFirestore()
+                    } else {
+                        print("you are NOT a staff ")
+                    }
+
                     isQRCodeSheetPresented=true
                     // viewModel.deleteAccount()
-                    let qrCodeData = QRCodeModel(category: selectedCategory, points: selectedPoints, startDate: startDate, endDate: endDate, startTime: startTime, endTime: endTime, remarks: remarks)
+                    
                     // qrCodeData.saveQRCodeDataToFirestore()
-                    print(qrCodeData.id)
-                    qrCodeSheetContent = AnyView(QRCodeView(url: qrCodeData.id))
+                    
+                    
 
                 }) {
                     Text("Generate") // Button text
@@ -217,7 +229,8 @@ struct GenerateQRCode: View {
                 
                 
             }
-        }
+        
+        .environmentObject(viewModel)
         .sheet(isPresented: $isQRCodeSheetPresented) {
             if let content = qrCodeSheetContent {
                 content

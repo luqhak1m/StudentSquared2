@@ -105,7 +105,7 @@ struct ContentView: View {
             case .student:
                 return AnyView(StudentProfileView())
             case .staff:
-                return AnyView(StaffProfileView())
+                return AnyView(MainMenuView())
             default:
                 return AnyView(LoginView())
         }

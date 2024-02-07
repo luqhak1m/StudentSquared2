@@ -29,8 +29,10 @@ struct MainMenuView: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: StudentProfileView())
-                        createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MainMenuView())
+                        createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MisconductReport())
+                        createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
                         createNavigationLinkWithImage(imageName: "Cart", label: "Redeem Prizes", destination: MainMenuView())
+                        createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
                         createNavigationLinkWithImage(imageName: "QR", label: "Scan QR Code", destination: ScanQR())
                         createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
                         createNavigationLinkWithImage(imageName: "Setting", label: "Settings", destination: MainMenuView())

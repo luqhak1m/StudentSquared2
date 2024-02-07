@@ -19,9 +19,10 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
     var startTime: Date
     var endTime: Date
     var remarks: String
+    var staffID: Int
     
     // Initialize the QRCodeModel with all properties
-    init(category: String, points: Int, startDate: Date, endDate: Date, startTime: Date, endTime: Date, remarks: String) {
+    init(category: String, points: Int, startDate: Date, endDate: Date, startTime: Date, endTime: Date, remarks: String, staffID: Int) {
         self.category = category
         self.points = points
         self.startDate = startDate
@@ -29,6 +30,7 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
         self.startTime = startTime
         self.endTime = endTime
         self.remarks = remarks
+        self.staffID = staffID
     }
     
     // A computed property to generate the string to encode in the QR code
@@ -95,10 +97,12 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
                       let endDateTimestamp = data["end date"] as? Timestamp,
                       let startTimeTimestamp = data["start time"] as? Timestamp,
                       let endTimeTimestamp = data["end time"] as? Timestamp,
-                      let remarks = data["remark"] as? String else {
+                      let remarks = data["remark"] as? String,
+                      let staffID = data["staffID"] as? Int else {
                           print("Error decoding QR code data")
                           completion(nil, nil)
                           return
+                      
                       }
                 
                 let qrCodeModel = QRCodeModel(
@@ -108,7 +112,8 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
                     endDate: endDateTimestamp.dateValue(),
                     startTime: startTimeTimestamp.dateValue(),
                     endTime: endTimeTimestamp.dateValue(),
-                    remarks: remarks
+                    remarks: remarks,
+                    staffID: staffID
                 )
                 
                 completion(qrCodeModel, nil)
