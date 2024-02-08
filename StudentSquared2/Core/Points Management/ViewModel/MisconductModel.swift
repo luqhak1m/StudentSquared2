@@ -139,7 +139,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                 } else if let document = snapshot?.documents.first{ // Assuming studentID is unique
                     do {
                         let studentData = try document.data(as: Student.self)
-                        // print("Fetched student name: \(studentData.fullname)")
+                        print("Fetched student name: \(studentData.fullname)")
                         completion(studentData.fullname)
                     } catch {
                         print("Error decoding student data: \(error)")
@@ -166,7 +166,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                     print("Error updating accepted status: \(error.localizedDescription)")
                     completion(false)
                 } else {
-                    print("Status updated successfully")
+                    // print("Status updated successfully")
                     completion(true)
                 }
             }
@@ -178,12 +178,72 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                     print("Error updating displayed status: \(error.localizedDescription)")
                     completion(false)
                 } else {
-                    print("Status updated successfully")
+                    // print("Status updated successfully")
                     completion(true)
                 }
             }
         
         
         }
+    
+    func deductPointsForMisconduct(completion: @escaping (Bool, Error?) -> Void) {
+        print("executed...")
+        guard let studentID = self.studentID, let pointsToDeduct = self.demeritPoints else {
+            print("Missing student ID or demerit points.")
+            completion(false, nil)
+            return
+        }
+
+        let db = Firestore.firestore()
+        // Adjust the query to find the student document by studentID field
+        db.collection("student").whereField("studentID", isEqualTo: studentID).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error finding student: \(error.localizedDescription)")
+                completion(false, error)
+                return
+            }
+
+            guard let document = snapshot?.documents.first else {
+                print("No student found with ID: \(studentID)")
+                completion(false, nil)
+                return
+            }
+
+            // Proceed with deduction using a transaction
+            let studentRef = document.reference
+            db.runTransaction({ (transaction, errorPointer) -> Any? in
+                let studentDocument: DocumentSnapshot
+                do {
+                    try studentDocument = transaction.getDocument(studentRef)
+                } catch let fetchError as NSError {
+                    errorPointer?.pointee = fetchError
+                    return nil
+                }
+
+                guard let existingPoints = studentDocument.data()?["points"] as? Int else {
+                    let error = NSError(domain: "App", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to retrieve existing points."])
+                    errorPointer?.pointee = error
+                    return nil
+                }
+
+                // Calculate the new points total after deduction
+                let newTotal = existingPoints - pointsToDeduct
+
+                // Update the total points for the student
+                transaction.updateData(["points": newTotal], forDocument: studentRef)
+                return nil
+            }) { (object, error) in
+                if let error = error {
+                    print("Transaction failed: \(error)")
+                    completion(false, error)
+                } else {
+                    print("Transaction successfully committed!")
+                    completion(true, nil)
+                }
+            }
+        }
+    }
+
+
 }
 

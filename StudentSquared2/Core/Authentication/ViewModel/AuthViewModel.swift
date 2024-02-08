@@ -111,7 +111,7 @@ class AuthViewModel: ObservableObject {
                 guard let studentID = studentID, let year = year, let course = course else {
                     throw RegistrationError.missingStudentDetails
                 }
-                let student = Student(id: result.user.uid, studentID: studentID, password: password, fullname: fullname, email: email, year: year, course: course, userType: userType)
+                let student = Student(id: result.user.uid, studentID: studentID, password: password, fullname: fullname, email: email, year: year, course: course, userType: userType, points: 0) // Assuming 'points' is now part of Student
                 let encodedStudent = try Firestore.Encoder().encode(student)
                 try await Firestore.firestore().collection("student").document(student.id).setData(encodedStudent)
                 print("Storing student data..")
@@ -309,5 +309,6 @@ class AuthViewModel: ObservableObject {
         
         //print("DEBUG: Current user is \(self.currentUser)")
     }*/
+
 
 }

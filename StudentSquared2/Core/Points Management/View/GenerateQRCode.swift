@@ -72,9 +72,6 @@ struct GenerateQRCode: View {
     
     var body: some View {
         
-
-            
-            
             ZStack {
                 
                 
@@ -195,6 +192,9 @@ struct GenerateQRCode: View {
                         print(qrCodeData.id)
                         qrCodeSheetContent = AnyView(QRCodeView(url: qrCodeData.id))
                         qrCodeData.saveQRCodeDataToFirestore()
+                        
+                        
+                        
                     } else {
                         print("you are NOT a staff ")
                     }
@@ -236,6 +236,10 @@ struct GenerateQRCode: View {
                 content
             }
         }
+        
+            
+            
+            
       }
 }
 
@@ -249,8 +253,3 @@ struct CategorySelectionView: View {
             .padding()
     }
 }
-
-#Preview {
-    GenerateQRCode()
-}
-

@@ -169,9 +169,3 @@ struct MisconductReport: View {
     }
 
 }
-
-struct MisconductReport_Previews: PreviewProvider {
-  static var previews: some View {
-    MisconductReport()
-  }
-}

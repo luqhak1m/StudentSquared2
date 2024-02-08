@@ -16,6 +16,7 @@ struct Student: Identifiable, Codable {
     let year: Int
     let course: String
     let userType: UserType
+    var points: Int
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()
@@ -28,5 +29,5 @@ struct Student: Identifiable, Codable {
 }
 
 extension Student {
-    static var MOCK_USER = Student(id: NSUUID().uuidString, studentID:1211104230, password: "111222", fullname: "Aisyah", email: "Aisyah@gmail.com", year: 2, course: "FCI", userType: .student)
+    static var MOCK_USER = Student(id: NSUUID().uuidString, studentID:1211104230, password: "111222", fullname: "Aisyah", email: "Aisyah@gmail.com", year: 2, course: "FCI", userType: .student, points: 0)
 }

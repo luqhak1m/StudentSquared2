@@ -31,13 +31,8 @@ struct MisconductPreview: View {
                             details: report.details,
                             report: report,
                             onAccept: { // Add this closure
-                                report.updateAcceptedStatus(accepted: true) { success in
-                                    if success {
-                                        // After the status is updated, refresh the reports
-                                        self.fetchMisconductReports {
-                                            self.fetchStudentNamesAndUpdateReports()
-                                        }
-                                    }
+                                self.fetchMisconductReports {
+                                    self.fetchStudentNamesAndUpdateReports()
                                 }
                             })
                     }
@@ -94,6 +89,7 @@ struct CardView: View {
     var studentID: Int
     var details: String
     var report: MisconductReportModel // Pass the whole report model to the CardView
+    // var points: PointModel // Pass the whole report model to the CardView
     var onAccept: (() -> Void)?
 
     // var evidence:
@@ -142,17 +138,26 @@ struct CardView: View {
 
                 VStack(spacing: 10) {
                     Button("Accept") {
-                        onAccept?() // Call the closure here
+                        
                         report.updateAcceptedStatus(accepted: true) { success in
                            if success {
                                // Handle the UI update or any other logic after the status is updated
-                               print("Accepted status set to true in Firestore")
+                               // print("Accepted status set to true in Firestore")
+                               
                            
-                           } else {
-                               // Handle the error case
-                               print("Failed to update the accepted status")
                            }
                        }
+                        let point = PointModel(amount: pointsDeduction, category: .demerit, reason: category)
+                        
+                        point.updatePointsForStudentWithQuery(studentID: studentID){ success, error in
+                            if success {
+                                print("Points successfully updated for student.")
+                            } else if let error = error {
+                                print("Failed to update points: \(error.localizedDescription)")
+                            }
+                        }
+                       onAccept?() // Call the closure here
+                    
                     }
                     .frame(width: 103, height: 28)
                     .foregroundColor(.white)
@@ -164,13 +169,14 @@ struct CardView: View {
                         report.updateAcceptedStatus(accepted: false) { success in
                            if success {
                                // Handle the UI update or any other logic after the status is updated
-                               print("Accepted status set to false in Firestore")
+                               // print("Accepted status set to false in Firestore")
                            
                            } else {
                                // Handle the error case
-                               print("Failed to update the accepted status")
+                               // print("Failed to update the accepted status")
                            }
                        }
+                        
                     }
                     .frame(width: 103, height: 28)
                     .foregroundColor(.white)
@@ -188,8 +194,6 @@ struct CardView: View {
         )
         .padding(.horizontal)
     }
-    
-    
 }
 
 struct MisconductDetailView: View {

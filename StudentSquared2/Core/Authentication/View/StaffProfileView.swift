@@ -1,265 +1,190 @@
 import SwiftUI
 
 struct StaffProfileView: View {
+    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     @EnvironmentObject var viewModel: AuthViewModel
-    
+
     var body: some View {
-        
-        if let user = viewModel.currentUser {
-            ZStack() {
+        NavigationView{
+            ZStack {
+                UserHeaderView()
+                    .offset(y: -350)
+                    .environmentObject(viewModel)
+                // Large white rectangle at the back
                 Rectangle()
                     .foregroundColor(.clear)
-                    .frame(width: 390, height: 735)
+                    .frame(width: 390, height: 730)
                     .background(.white)
                     .cornerRadius(56)
-                    .offset(x: 0, y: 109.50)
-                HStack(spacing: 0) {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 139, height: 5)
-                        .background(Color(red: 0.95, green: 0.95, blue: 0.97))
-                        .cornerRadius(100)
-                        .rotationEffect(.degrees(-180))
-                }
-                .padding(EdgeInsets(top: 0, leading: 127, bottom: 0, trailing: 127))
-                .frame(width: 393, height: 21)
-                .offset(x: 2.50, y: 411.50)
-                .opacity(0.75)
-                
-                Text("Hello,")
-                    .font(Font.custom("Raleway", size: 14).weight(.light))
-                    .foregroundColor(Color(red: 0.43, green: 0.43, blue: 0.43))
-                    .offset(x: -144.50, y: -300)
-                
-                Text(user.fullname)
-                //Text(User.MOCK_USER.fullname)
-                    .font(Font.custom("Outfit", size: 20).weight(.semibold))
-                    .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73))
-                    .offset(x: -114.50, y: -282)
-                
-                Text(user.fullname)
-                //Text(User.MOCK_USER.initials)
-                    .font(Font.custom("Outfit", size: 20).weight(.semibold))
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .frame(width:45, height:45)
-                    .background(Color(.systemGray3))
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .offset(x: -150, y: -335.78)
-                
-                Group{
-                    Button {
-                        print("Sign out..")
-                        viewModel.signOut()
-                    } label : {
-                        Image("SignOutIcon")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width:30, height:30)
-                        //.offset(x:50,y:15)
-                    }
-                }
-                .offset(x: 154, y: -339)
-                
-                Group {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 150, height: 173)
-                        .background(.white)
-                        .cornerRadius(56)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 56)
-                                .inset(by: 0.50)
-                                .stroke(
-                                    Color(red: 0, green: 0, blue: 0).opacity(0.10), lineWidth: 0.50
-                                )
-                        )
-                        .offset(x: -91, y: -154.50)
-                        .shadow(
-                            color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, y: 4
-                        );
+                    .offset(y: 100) // Adjust this value to change the vertical positioning
+
+                if let staff = viewModel.currentUser, viewModel.currentUser?.userType == .staff{
                     
-                    Button(action: {
-                        // Action for "View Profile" button
-                        print("View Profile")
-                    }) {
-                        VStack {
-                            ZStack() {
-                                Image("ViewProfileIcon")
-                                    .resizable()
-                                    .offset(x: 0, y: -6)
-                                    .scaledToFit()
-                                    .frame(width: 80, height: 80)
-                            }
-                            .frame(width: 70, height: 70)
-                            Text("View Profile")
-                                .font(Font.custom("Outfit", size: 16).weight(.semibold))
-                                .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50))
-                        }
+                }
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: StudentProfileView())
+                        createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MisconductReport())
+                        createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
+                        createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
+                        createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                        createNavigationLinkWithImage(imageName: "Setting", label: "Settings", destination: MainMenuView())
                     }
-                    .offset(x: -90, y: -150)
-                    
-                    Group {
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .frame(width: 150, height: 173)
-                            .background(.white)
-                            .cornerRadius(56)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 56)
-                                    .inset(by: 0.50)
-                                    .stroke(
-                                        Color(red: 0, green: 0, blue: 0).opacity(0.10), lineWidth: 0.50
-                                    )
-                            )
-                            .offset(x: 91, y: -154.50)
-                            .shadow(
-                                color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, y: 4
-                            );
-                        Button(action: {
-                            // Action for "Report Misconduct" button
-                            print("Report Misconduct")
-                        }) {
-                            VStack {
-                                ZStack() {
-                                    Image("ReportIcon")
-                                        .resizable()
-                                        .offset(y: -15)
-                                        .scaledToFit()
-                                        .frame(width: 90, height: 90)
-                                }
+                    .padding()
+                }
+                .offset(y: 175)
+
+                // The bottom rectangle, adjusted to be partially off-screen
+                // VStack {
+                    // Spacer() // Pushes the bottom bar to the bottom of the screen
+                    // HStack(spacing: 20) { // Adjust spacing as needed
+                        // createLogoOnBottomBar(imageName: "BottomMore") // Replace with actual image names
+                        // createLogoOnBottomBar(imageName: "BottomLeaderboard")
+                        // createLogoOnBottomBar(imageName: "BottomHome")
+                        // createLogoOnBottomBar(imageName: "BottomQR")
+                        // createLogoOnBottomBar(imageName: "BottomUser")
+                    // }
+                    // .padding(.horizontal) // Add horizontal padding
+                    // .frame(maxWidth: .infinity, maxHeight: 121)
+                    // .background(Color(red: 0.85, green: 0.85, blue: 0.85))
+                    // .cornerRadius(28)
+                    // .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
+                    // .edgesIgnoringSafeArea(.bottom)
+                // }
+                .edgesIgnoringSafeArea(.all) // Ignore safe area to extend the background to the screen edges
+            }
+        
+        }
+
+    }
+    
+    struct UserHeaderView: View {
+        @EnvironmentObject var viewModel: AuthViewModel
+        
+        var body: some View {
+            ZStack {
+                Color(red: 0.92, green: 0.90, blue: 0.97)
+                    .edgesIgnoringSafeArea(.top)
+                    .frame(height: 220) // You might need to adjust this height
+
+                VStack {
+                    HStack {
+                        VStack(alignment: .leading){
+                            Image("PFP Aisyah") // Replace with actual profile image
+                                .resizable()
+                                .scaledToFit()
                                 .frame(width: 50, height: 50)
-                                Text("Report \nMisconduct")
-                                    .font(Font.custom("Outfit", size: 16).weight(.semibold))
-                                    .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50))
+                                .clipShape(Circle())
+                                .padding(.leading)
+
+                            Text("Hello,")
+                                .foregroundColor(.white)
+                                .font(.headline)
+                                .padding(.leading, 10)
+                            if let user = viewModel.currentUser {
+                                Text(user.fullname)
+                                    .font(Font.custom("Outfit", size: 20).weight(.semibold))
+                                    .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
+                            }else{
+                                Text("Not Signed In")
+                                    .font(Font.custom("Outfit", size: 20).weight(.semibold))
+                                    .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
                             }
+                            //Text("Not Signed In")
+                                //.font(Font.custom("Outfit", size: 20).weight(.semibold))
+                                //.foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
+                            
                         }
-                        .offset(x: 90.50, y: -135)
+                        .offset(y:65)
+                        .offset(x:15)
+
+                        Spacer()
+                            
                     }
-                    
-                    Group{
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .frame(width: 150, height: 173)
-                            .background(.white)
-                            .cornerRadius(56)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 56)
-                                    .inset(by: 0.50)
-                                    .stroke(
-                                        Color(red: 0, green: 0, blue: 0).opacity(0.10), lineWidth: 0.50
-                                    )
-                            )
-                            .offset(x: 91, y: 50)
-                            .shadow(
-                                color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, y: 4
-                            );
-                        Button(action: {
-                            // Action for "Scan QR Code" button
-                            print("Generate QR Code")
-                        }) {
-                            VStack {
-                                ZStack() {
-                                    Image("QRCodeIcon")
+                    .padding(.top, 20)
+
+                    HStack {
+                        Spacer()
+
+                        VStack(alignment: .trailing, spacing: 4) {
+                            HStack {
+                                Image(systemName: "bell.fill") // Replace with your actual bell icon
+                                    .foregroundColor(.white)
+                                Image(systemName: "line.horizontal.3") // Replace with your actual menu icon
+                                    .foregroundColor(.white)
+                                Button {
+                                    print("Sign out..")
+                                    viewModel.signOut()
+                                } label : {
+                                    Image("SignOutIcon")
                                         .resizable()
-                                        .offset(x: -1, y: -6)
                                         .scaledToFit()
-                                        .frame(width: 80, height: 80)
+                                        .frame(width:30, height:30)
+                                        // .offset(x:50,y:15)
                                 }
-                                .frame(width: 70, height: 70)
-                                Text("Generate \nQR Code")
-                                    .font(Font.custom("Outfit", size: 16).weight(.semibold))
-                                    .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50))
                             }
-                        }
-                        .offset(x: 92.50, y: 57)
-                    }
-                    
-                    Group {
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .frame(width: 150, height: 173)
-                            .background(.white)
-                            .cornerRadius(56)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 56)
-                                    .inset(by: 0.50)
-                                    .stroke(
-                                        Color(red: 0, green: 0, blue: 0).opacity(0.10), lineWidth: 0.50
-                                    )
-                            )
-                            .offset(x: -91, y: 57) //rectangle position
-                            .shadow(
-                                color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, y: 4
-                            );
-                        Button(action: {
-                            // Action for "View Activity Log" button
-                            print("View Activity Log")
-                        }) {
-                            VStack {
-                                ZStack() {
-                                    Image("ActivityLogIcon")
-                                        .offset(x: 1, y: -2)
-                                        .scaledToFit()
-                                        .frame(width: 50, height: 50)
-                                }
-                                .frame(width: 70, height: 70)
-                                Text("View Activity \nLog")
-                                    .font(Font.custom("Outfit", size: 16).weight(.semibold))
-                                    .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50))
+                            .offset(y:-20)
+                            .offset(x:-15)
+
+                            
+                            VStack(alignment: .leading){
+                                Text("Points: 4550")
+                                    .font(Font.custom("Outfit", size: 12).weight(.semibold))
+                                    .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
+                                Text("Position: 1")
+                                    .font(Font.custom("Outfit", size: 12).weight(.semibold))
+                                    .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
                             }
+                            .offset(x:-15)
+
+                            
                         }
-                        .offset(x: -94, y: 57) //button position
+                        .padding(.trailing)
                     }
-                    
-                    Group{
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .frame(width: 150, height: 173)
-                            .background(.white)
-                            .cornerRadius(56)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 56)
-                                    .inset(by: 0.50)
-                                    .stroke(
-                                        Color(red: 0, green: 0, blue: 0).opacity(0.10), lineWidth: 0.50
-                                    )
-                            )
-                            .offset(x:0 , y: 250)
-                            .shadow(
-                                color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, y: 4
-                            );
-                        Button(action: {
-                            // Action for "Settings" button
-                            print("Settings")
-                        }) {
-                            VStack {
-                                ZStack() {
-                                    Image("SettingsIcon")
-                                        .resizable()
-                                        .offset(x: -2, y: -6)
-                                        .scaledToFit()
-                                        .frame(width: 80, height: 80)
-                                }
-                                .frame(width: 70, height: 70)
-                                Text("Settings")
-                                    .font(Font.custom("Outfit", size: 16).weight(.semibold))
-                                    .foregroundColor(Color(red: 0.50, green: 0.50, blue: 0.50))
-                            }
-                        }
-                        .offset(x: 0, y: 250)
-                    }
+                    .padding(.bottom, 50)
                 }
             }
-            .frame(width: 390, height: 844)
-            .background(Color(red: 0.92, green: 0.90, blue: 0.97))
         }
     }
-}
 
-struct StaffProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        StaffProfileView()
+    // Function to create a styled NavigationLink with an image and label
+    func createNavigationLinkWithImage<Destination: View>(
+        imageName: String,
+        label: String,
+        destination: Destination
+    ) -> some View {
+
+        NavigationLink(destination: destination) {
+            VStack {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 70, height: 70)
+                    // .clipShape(Circle())
+                    .padding(.bottom, 8)
+                
+                Text(label)
+                    .font(.caption)
+                    .foregroundColor(.black)
+            }
+            .frame(width: 150, height: 173)
+            .background(Color.white)
+            .cornerRadius(56)
+            .overlay(
+                RoundedRectangle(cornerRadius: 56)
+                    .stroke(Color.black.opacity(0.10), lineWidth: 0.50)
+            )
+            .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
+        }
+    }
+
+
+    func createLogoOnBottomBar(imageName: String) -> some View {
+        Image(imageName) // Using systemName for SF Symbols, replace with your actual image names if they are custom
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 25, height: 25) // Adjust the size as needed
+            .foregroundColor(.black)
+            .padding()
     }
 }
-

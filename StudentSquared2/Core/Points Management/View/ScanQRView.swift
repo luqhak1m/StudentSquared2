@@ -15,84 +15,108 @@ struct ScanQR: View {
     @State private var isPresentingImagePicker = false
     @State private var scannedCode: String?
     @State private var scannedQRCodeModel: QRCodeModel? = nil
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
-        VStack {
-            Spacer()
-            
-            Image("ScanQR")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 180, height: 180)
-                .padding(.bottom, 20)
-            
-            Button(action: {
-                isPresentingScanner = true
-            }) {
-                Text("Scan QR Code")
-                    .font(Font.custom("Outfit", size: 18).weight(.semibold))
-                    .foregroundColor(.white)
-                    .frame(width: 218, height: 45)
-                    .background(Color(red: 0.46, green: 0.36, blue: 0.73))
-                    .cornerRadius(12)
-            }
-            .sheet(isPresented: $isPresentingScanner, content: {
-                self.scanner
-            })
-            
-            Button(action: {
-                isPresentingImagePicker = true
-            }) {
-                Text("Scan from Library")
-                    .font(Font.custom("Outfit", size: 18).weight(.semibold))
-                    .foregroundColor(.white)
-                    .frame(width: 218, height: 45)
-                    .background(Color(red: 0.46, green: 0.36, blue: 0.73))
-                    .cornerRadius(12)
-            }
-            .sheet(isPresented: $isPresentingImagePicker) {
-                ImagePickerView { image in
-                    detectQRCode(in: image) { result in
-                        switch result {
-                        case .success(let code):
-                            self.scannedCode = code
-                        case .failure(let error):
-                            print(error.localizedDescription)
+        if let student = viewModel.currentStudent, viewModel.currentUser?.userType == .student{
+            VStack {
+                Spacer()
+                
+                Image("ScanQR")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 180, height: 180)
+                    .padding(.bottom, 20)
+                
+                Button(action: {
+                    isPresentingScanner = true
+                }) {
+                    Text("Scan QR Code")
+                        .font(Font.custom("Outfit", size: 18).weight(.semibold))
+                        .foregroundColor(.white)
+                        .frame(width: 218, height: 45)
+                        .background(Color(red: 0.46, green: 0.36, blue: 0.73))
+                        .cornerRadius(12)
+                }
+                .sheet(isPresented: $isPresentingScanner, content: {
+                    self.scanner
+                })
+                
+                Button(action: {
+                    isPresentingImagePicker = true
+                }) {
+                    Text("Scan from Library")
+                        .font(Font.custom("Outfit", size: 18).weight(.semibold))
+                        .foregroundColor(.white)
+                        .frame(width: 218, height: 45)
+                        .background(Color(red: 0.46, green: 0.36, blue: 0.73))
+                        .cornerRadius(12)
+                }
+                .sheet(isPresented: $isPresentingImagePicker) {
+                    ImagePickerView { image in
+                        detectQRCode(in: image) { result in
+                            switch result {
+                            case .success(let code):
+                                self.scannedCode = code
+                            case .failure(let error):
+                                print(error.localizedDescription)
+                            }
+                            self.isPresentingImagePicker = false
                         }
-                        self.isPresentingImagePicker = false
                     }
                 }
-            }
-            
-            if let scannedCode = scannedCode {
-                Button(action: {
-                    print(scannedCode)
-                   QRCodeModel.matchScannedQRCodeID(with: scannedCode) { result, error in
-                       
-                       if let qrCodeModel = result {
-                           self.scannedQRCodeModel = qrCodeModel
-                           print(scannedQRCodeModel?.encodedString ?? "hi")
-                           // Here, you can update the UI or perform further actions with the fetched QRCodeModel instance
-                       } else if let error = error {
-                           print("Error fetching QR code data: \(error.localizedDescription)")
-                       } else {
-                           print("No QR code data found for ID: \(scannedCode)")
+                .environmentObject(viewModel)
+                if let scannedCode = scannedCode {
+                    Button(action: {
+                        print(scannedCode)
+                       QRCodeModel.matchScannedQRCodeID(with: scannedCode) { result, error in
+                           
+                           if let qrCodeModel = result {
+                               self.scannedQRCodeModel = qrCodeModel
+                               print(scannedQRCodeModel?.encodedString ?? "hi")
+                               
+                               let point = PointModel(
+                                amount: qrCodeModel.points,
+                                category: .merit,
+                                reason: qrCodeModel.category)
+                               
+                               point.savePointTodb()
+                 
+                               point.updatePointsForStudentWithQuery(studentID:student.studentID){success, error in
+                                   if success{
+                                       print("added pts")
+                                   }}
+                               
+                               let merit = Merit(
+                                pointID: point.id,
+                                studentID: student.studentID,
+                                qrcodeID: qrCodeModel.id,
+                               dateScanned: Date())
+                              
+                               merit.saveMeritToDb()
+                               
+                           } else if let error = error {
+                               print("Error fetching QR code data: \(error.localizedDescription)")
+                           } else {
+                               print("No QR code data found for ID: \(scannedCode)")
+                           }
                        }
+                   }) {
+                       Text("Fetch QR Code Details")
+                           .font(.title2)
+                           .padding()
+                           .background(Color.blue)
+                           .foregroundColor(.white)
+                           .cornerRadius(10)
                    }
-               }) {
-                   Text("Fetch QR Code Details")
-                       .font(.title2)
-                       .padding()
-                       .background(Color.blue)
-                       .foregroundColor(.white)
-                       .cornerRadius(10)
-               }
+                }
+                
+                Spacer()
             }
-            
-            Spacer()
+            .edgesIgnoringSafeArea(.bottom)
+            .background(.white)
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .background(.white)
+        
     }
     
     var scanner: some View {
@@ -171,14 +195,3 @@ enum QRCodeError: Error {
     case invalidImage
     case noQRCodeFound
 }
-
-
-
-struct ScanQR_Previews: PreviewProvider {
-  static var previews: some View {
-    ScanQR()
-  }
-}
-
-
-

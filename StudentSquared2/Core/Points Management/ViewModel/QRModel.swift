@@ -57,7 +57,7 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
         let endTimeTimestamp = Timestamp(date: Calendar.current.startOfDay(for: endDate).addingTimeInterval(endTime.timeIntervalSince1970.truncatingRemainder(dividingBy: 86400)))
 
         let qrCodeData: [String: Any] = [
-            "QRCodeID": id,
+            "qrcodeID": id,
             "category": category,
             "points": points,
             "start date": startDateTimestamp,
@@ -81,7 +81,7 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
     static func matchScannedQRCodeID(with scannedID: String, completion: @escaping (QRCodeModel?, Error?) -> Void) {
         let db = Firestore.firestore()
         
-        db.collection("qr-data").whereField("QRCodeID", isEqualTo: scannedID).getDocuments { (querySnapshot, error) in
+        db.collection("qr-data").whereField("qrcodeID", isEqualTo: scannedID).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error finding QR code data: \(error.localizedDescription)")
                 completion(nil, error)
@@ -94,7 +94,7 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
                 
                 let data = document.data()
                 
-                guard let id = data["QRCodeID"] as? String,
+                guard let id = data["qrcodeID"] as? String,
                       let category = data["category"] as? String,
                       let points = data["points"] as? Int,
                       let startDateTimestamp = data["start date"] as? Timestamp,

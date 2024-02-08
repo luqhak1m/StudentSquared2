@@ -30,16 +30,36 @@ struct MainMenuView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: StudentProfileView())
                         createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MisconductReport())
-                        createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
-                        createNavigationLinkWithImage(imageName: "Cart", label: "Redeem Prizes", destination: MainMenuView())
-                        createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
-                        createNavigationLinkWithImage(imageName: "QR", label: "Scan QR Code", destination: ScanQR())
-                        createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                        if let staff = viewModel.currentStaff, viewModel.currentUser?.userType == .staff{
+                            createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
+
+
+                            switch staff.position{
+                                case("Lecturer"):
+                                    createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
+                                    createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                                    createNavigationLinkWithImage(imageName: "History", label: "View Students Activity Log", destination: MainMenuView())
+
+
+                                case("Admin"):
+                                    createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: MainMenuView())
+
+                            default:
+                                let user = false
+                            }
+                        }else {
+                            createNavigationLinkWithImage(imageName: "QR", label: "Scan QR Code", destination: ScanQR())
+                            createNavigationLinkWithImage(imageName: "Cart", label: "Redeem Prizes", destination: MainMenuView())
+                            createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                        }
                         createNavigationLinkWithImage(imageName: "Setting", label: "Settings", destination: MainMenuView())
                     }
                     .padding()
                 }
                 .offset(y: 175)
+                    
+                
+                
 
                 // The bottom rectangle, adjusted to be partially off-screen
                 VStack {
@@ -134,17 +154,17 @@ struct MainMenuView: View {
                             .offset(x:-15)
 
                             
-                            VStack(alignment: .leading){
-                                Text("Points: 4550")
-                                    .font(Font.custom("Outfit", size: 12).weight(.semibold))
-                                    .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
-                                Text("Position: 1")
-                                    .font(Font.custom("Outfit", size: 12).weight(.semibold))
-                                    .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
+                            if let student = viewModel.currentStudent, viewModel.currentUser?.userType == .student{
+                                VStack(alignment: .leading){
+                                    Text("Points: \(student.points)")
+                                        .font(Font.custom("Outfit", size: 12).weight(.semibold))
+                                        .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
+                                    Text("Position: 1")
+                                        .font(Font.custom("Outfit", size: 12).weight(.semibold))
+                                        .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
+                                }
+                                .offset(x:-15)
                             }
-                            .offset(x:-15)
-
-                            
                         }
                         .padding(.trailing)
                     }
@@ -195,17 +215,3 @@ struct MainMenuView: View {
             .padding()
     }
 }
-
-struct MainMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainMenuView()
-    }
-}
-//
-//  MainMenuView.swift
-//  StudentSquared2
-//
-//  Created by Luqman Hakim on 18/01/2024.
-//
-
-import Foundation
