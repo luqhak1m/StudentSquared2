@@ -103,7 +103,7 @@ struct ContentView: View {
         // Return the appropriate profile view
         switch userType {
             case .student:
-                return AnyView(StudentProfileView())
+                return AnyView(MainMenuView())
             case .staff:
                 return AnyView(MainMenuView())
             default:

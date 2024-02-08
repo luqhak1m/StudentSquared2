@@ -99,6 +99,16 @@
 		C9489AA32B58480D00F536FC /* ChangePasswordRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordRequestView.swift; sourceTree = "<group>"; };
 		C9489AA52B5849E400F536FC /* ChangePasswordCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCodeView.swift; sourceTree = "<group>"; };
 		C9489AA72B584A2600F536FC /* ChangePasswordCreatePassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCreatePassView.swift; sourceTree = "<group>"; };
+		C9B19D082B74139E00781A5F /* Outfit-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Medium.ttf"; sourceTree = "<group>"; };
+		C9B19D092B74139E00781A5F /* Outfit-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C9B19D0A2B74139E00781A5F /* Outfit-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Light.ttf"; sourceTree = "<group>"; };
+		C9B19D0B2B74139E00781A5F /* Outfit-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Black.ttf"; sourceTree = "<group>"; };
+		C9B19D0C2B74139E00781A5F /* Outfit-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Regular.ttf"; sourceTree = "<group>"; };
+		C9B19D0D2B74139E00781A5F /* Outfit-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Thin.ttf"; sourceTree = "<group>"; };
+		C9B19D0E2B74139E00781A5F /* Outfit-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-SemiBold.ttf"; sourceTree = "<group>"; };
+		C9B19D0F2B74139E00781A5F /* Outfit-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C9B19D102B74139E00781A5F /* Outfit-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Bold.ttf"; sourceTree = "<group>"; };
+		C9B19D112B7413B800781A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C9F7C6192B729350005B8CAA /* BottomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationBar.swift; sourceTree = "<group>"; };
 		C9F7C61B2B72936F005B8CAA /* MeritDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeritDetails.swift; sourceTree = "<group>"; };
 		C9F7C61C2B72936F005B8CAA /* GenerateQRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateQRCode.swift; sourceTree = "<group>"; };
@@ -152,14 +162,6 @@
 				C9489A9F2B583C6900F536FC /* StudentRegisterView.swift */,
 				2462D7632B7100CC0039DB37 /* StudentProfileView.swift */,
 				2462D7692B723C590039DB37 /* StaffProfileView.swift */,
-				C9F7C61C2B72936F005B8CAA /* GenerateQRCode.swift */,
-				C9F7C61F2B72936F005B8CAA /* MeritCategory.swift */,
-				C9F7C61B2B72936F005B8CAA /* MeritDetails.swift */,
-				C9F7C61D2B72936F005B8CAA /* QRCodeView.swift */,
-				C9F7C61E2B72936F005B8CAA /* ScanQRView.swift */,
-				C910C74C2B72C6FB0010A9F3 /* ImagePicker.swift */,
-				C910C74D2B72C6FB0010A9F3 /* MisconductReport.swift */,
-				C910C7522B7356170010A9F3 /* MisconductPreview.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,8 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				241BF8572B70EEFB00CBA0A0 /* AuthViewModel.swift */,
-				C910C7462B72A99A0010A9F3 /* QRModel.swift */,
-				C910C7502B72CA3F0010A9F3 /* MisconductModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -194,6 +194,7 @@
 		2462D75C2B70F3780039DB37 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C92CE7012B74CADC00231FE1 /* Points Management */,
 				2462D75D2B70F38F0039DB37 /* Authentication */,
 			);
 			path = Core;
@@ -216,6 +217,39 @@
 				2462D7672B71EDDA0039DB37 /* Staff.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C92CE7012B74CADC00231FE1 /* Points Management */ = {
+			isa = PBXGroup;
+			children = (
+				C92CE7032B74CAFA00231FE1 /* ViewModel */,
+				C92CE7022B74CAF400231FE1 /* View */,
+			);
+			path = "Points Management";
+			sourceTree = "<group>";
+		};
+		C92CE7022B74CAF400231FE1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C9F7C61C2B72936F005B8CAA /* GenerateQRCode.swift */,
+				C9F7C61F2B72936F005B8CAA /* MeritCategory.swift */,
+				C9F7C61B2B72936F005B8CAA /* MeritDetails.swift */,
+				C9F7C61D2B72936F005B8CAA /* QRCodeView.swift */,
+				C9F7C61E2B72936F005B8CAA /* ScanQRView.swift */,
+				C910C74C2B72C6FB0010A9F3 /* ImagePicker.swift */,
+				C910C74D2B72C6FB0010A9F3 /* MisconductReport.swift */,
+				C910C7522B7356170010A9F3 /* MisconductPreview.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C92CE7032B74CAFA00231FE1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C910C7462B72A99A0010A9F3 /* QRModel.swift */,
+				C910C7502B72CA3F0010A9F3 /* MisconductModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C9489A572B56D97D00F536FC = {
@@ -241,6 +275,8 @@
 		C9489A622B56D97D00F536FC /* StudentSquared2 */ = {
 			isa = PBXGroup;
 			children = (
+				C9B19D112B7413B800781A5F /* Info.plist */,
+				C9B19D072B74137200781A5F /* Font */,
 				2462D7602B70F53E0039DB37 /* Model */,
 				2462D75C2B70F3780039DB37 /* Core */,
 				241BF84D2B6AAFC300CBA0A0 /* Components */,
@@ -275,6 +311,22 @@
 				C9489A802B56D97E00F536FC /* StudentSquared2UITestsLaunchTests.swift */,
 			);
 			path = StudentSquared2UITests;
+			sourceTree = "<group>";
+		};
+		C9B19D072B74137200781A5F /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				C9B19D0B2B74139E00781A5F /* Outfit-Black.ttf */,
+				C9B19D102B74139E00781A5F /* Outfit-Bold.ttf */,
+				C9B19D0F2B74139E00781A5F /* Outfit-ExtraBold.ttf */,
+				C9B19D092B74139E00781A5F /* Outfit-ExtraLight.ttf */,
+				C9B19D0A2B74139E00781A5F /* Outfit-Light.ttf */,
+				C9B19D082B74139E00781A5F /* Outfit-Medium.ttf */,
+				C9B19D0C2B74139E00781A5F /* Outfit-Regular.ttf */,
+				C9B19D0E2B74139E00781A5F /* Outfit-SemiBold.ttf */,
+				C9B19D0D2B74139E00781A5F /* Outfit-Thin.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -614,6 +666,7 @@
 				DEVELOPMENT_TEAM = VT8XD2QY8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StudentSquared2/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera permission to scan QR code.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -645,6 +698,7 @@
 				DEVELOPMENT_TEAM = VT8XD2QY8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StudentSquared2/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera permission to scan QR code.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

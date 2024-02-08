@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class QRCodeModel: Identifiable, Codable, ObservableObject {
-    var id = UUID().uuidString // Unique identifier for each QR code instance
+    var id: String // Unique identifier for each QR code instance
     var category: String
     var points: Int
     var startDate: Date
@@ -22,7 +22,8 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
     var staffID: Int
     
     // Initialize the QRCodeModel with all properties
-    init(category: String, points: Int, startDate: Date, endDate: Date, startTime: Date, endTime: Date, remarks: String, staffID: Int) {
+    init(id: String = UUID().uuidString, category: String, points: Int, startDate: Date, endDate: Date, startTime: Date, endTime: Date, remarks: String, staffID: Int) {
+        self.id = id
         self.category = category
         self.points = points
         self.startDate = startDate
@@ -47,38 +48,40 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
     
     func saveQRCodeDataToFirestore() {
         print("executed!!!")
-           let db = Firestore.firestore()
-        
-           // Convert dates and times to Timestamps
-           let startDateTimestamp = Timestamp(date: startDate)
-           let endDateTimestamp = Timestamp(date: endDate)
-           let startTimeTimestamp = Timestamp(date: Calendar.current.startOfDay(for: startDate).addingTimeInterval(startTime.timeIntervalSince1970.truncatingRemainder(dividingBy: 86400)))
-           let endTimeTimestamp = Timestamp(date: Calendar.current.startOfDay(for: endDate).addingTimeInterval(endTime.timeIntervalSince1970.truncatingRemainder(dividingBy: 86400)))
-           
-           let qrCodeData: [String: Any] = [
-               "id": id,
-               "category": category,
-               "points": points,
-               "start date": startDateTimestamp,
-               "end date": endDateTimestamp,
-               "start time": startTimeTimestamp,
-               "end time": endTimeTimestamp,
-               "remark":remarks
-           ]
-        
-           db.collection("qr-data").addDocument(data: qrCodeData) { error in
-               if let error = error {
-                   print("Error saving QR code data: \(error.localizedDescription)")
-               } else {
-                   print("QR code data saved successfully")
-               }
-           }
-       }
+        let db = Firestore.firestore()
+
+        // Convert dates and times to Timestamps
+        let startDateTimestamp = Timestamp(date: startDate)
+        let endDateTimestamp = Timestamp(date: endDate)
+        let startTimeTimestamp = Timestamp(date: Calendar.current.startOfDay(for: startDate).addingTimeInterval(startTime.timeIntervalSince1970.truncatingRemainder(dividingBy: 86400)))
+        let endTimeTimestamp = Timestamp(date: Calendar.current.startOfDay(for: endDate).addingTimeInterval(endTime.timeIntervalSince1970.truncatingRemainder(dividingBy: 86400)))
+
+        let qrCodeData: [String: Any] = [
+            "QRCodeID": id,
+            "category": category,
+            "points": points,
+            "start date": startDateTimestamp,
+            "end date": endDateTimestamp,
+            "start time": startTimeTimestamp,
+            "end time": endTimeTimestamp,
+            "remark": remarks,
+            "staffID": staffID // Ensure this field exists in your Firestore document model
+        ]
+
+        // Use `document(id)` to explicitly set the document ID
+        db.collection("qr-data").document(id).setData(qrCodeData) { error in
+            if let error = error {
+                print("Error saving QR code data: \(error.localizedDescription)")
+            } else {
+                print("QR code data saved successfully with matching ID")
+            }
+        }
+    }
     
     static func matchScannedQRCodeID(with scannedID: String, completion: @escaping (QRCodeModel?, Error?) -> Void) {
         let db = Firestore.firestore()
         
-        db.collection("qr-data").whereField("id", isEqualTo: scannedID).getDocuments { (querySnapshot, error) in
+        db.collection("qr-data").whereField("QRCodeID", isEqualTo: scannedID).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error finding QR code data: \(error.localizedDescription)")
                 completion(nil, error)
@@ -91,7 +94,8 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
                 
                 let data = document.data()
                 
-                guard let category = data["category"] as? String,
+                guard let id = data["QRCodeID"] as? String,
+                      let category = data["category"] as? String,
                       let points = data["points"] as? Int,
                       let startDateTimestamp = data["start date"] as? Timestamp,
                       let endDateTimestamp = data["end date"] as? Timestamp,
@@ -106,6 +110,7 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
                       }
                 
                 let qrCodeModel = QRCodeModel(
+                    id: id,
                     category: category,
                     points: points,
                     startDate: startDateTimestamp.dateValue(),

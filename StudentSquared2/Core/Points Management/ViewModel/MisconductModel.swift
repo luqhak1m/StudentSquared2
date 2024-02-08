@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class MisconductReportModel: Identifiable, Codable, ObservableObject {
-    var reportID: Int? // Unique identifier for each QR code instance
+    var id: String// Unique identifier for each QR code instance
     var misconductType: String
     var date: Timestamp // Using Timestamp for Firestore compatibility
     var studentID: Int?
@@ -19,12 +19,14 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
     var demeritPoints: Int?
     var agreement1: Bool=false
     var agreement2: Bool=false
+    var displayed = true
     var accepted: Bool=false
     // Optional: Image URL if storing image references in Firestore
     var imageURL: String?
     
     // Initialize the MisconductReportModel with all properties
-    init(misconductType: String,
+    init(id: String = UUID().uuidString,
+         misconductType: String,
          date: Date,
          studentID: Int?,
          details: String,
@@ -39,14 +41,14 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
         self.demeritPoints = demeritPoints
         self.agreement1 = agreement1
         self.agreement2 = agreement2
-        self.reportID = 0
+        self.id = id
         // self.imageURL = imageURL
     }
     
     // Function to save or update the misconduct report in Firestore
     func saveOrUpdateMisconductReport() {
         let db = Firestore.firestore()
-        db.collection("misconduct").addDocument(data: toDictionary()) { error in
+        db.collection("misconduct").document(id).setData(toDictionary()) { error in
             if let error = error {
                 print("Error saving Misconduct data: \(error.localizedDescription)")
             } else {
@@ -64,6 +66,8 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
             "agreement1": agreement1,
             "agreement2": agreement2,
             "accepted" : accepted,
+            "displayed" : displayed,
+            "reportID" : id
         ]
         
         // Only add studentID and points if they are not nil
@@ -73,9 +77,6 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
            if let points = demeritPoints {
                dict["demeritPoints"] = points
            }
-           if let reportID = reportID {
-               dict["reportID"] = reportID
-           }
         
         return dict
     }
@@ -83,31 +84,62 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
     // Static function to fetch all misconduct reports
     static func fetchAllMisconductReports(completion: @escaping ([MisconductReportModel]?, Error?) -> Void) {
         let db = Firestore.firestore()
-        db.collection("misconduct").getDocuments { (snapshot, error) in
+        db.collection("misconduct").whereField("displayed", isEqualTo: true).getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error fetching misconduct reports: \(error.localizedDescription)")
                 completion(nil, error)
-            } else {
-                let reports = snapshot?.documents.compactMap { document -> MisconductReportModel? in
-                    try? document.data(as: MisconductReportModel.self)
-                }
-                completion(reports, nil)
+            }else if let documents = snapshot?.documents, !documents.isEmpty {
+                var reports = [MisconductReportModel]()
+                    for document in documents {
+                        let data = document.data()
+                        guard let misconductType = data["misconductType"] as? String,
+                              let date = data["date"] as? Timestamp,
+                              let details = data["details"] as? String else {
+                            print("Error decoding document \(document.documentID)")
+                            continue
+                        }
+                        let studentID = data["studentID"] as? Int
+                        let demeritPoints = data["demeritPoints"] as? Int
+                        let agreement1 = data["agreement1"] as? Bool ?? false
+                        let agreement2 = data["agreement2"] as? Bool ?? false
+                        // let accepted = data["accepted"] as? Bool ?? false
+                        // let displayed = data["displayed"] as? Bool ?? true
+                        // let details = data["details"] as? String
+                        // let imageURL = data["imageURL"] as? String
+
+                        let report = MisconductReportModel(
+                            id: document.documentID, // Use the document ID from Firestore
+                            misconductType: misconductType,
+                            date: date.dateValue(),
+                            studentID: studentID,
+                            details: details,
+                            demeritPoints: demeritPoints,
+                            agreement1: agreement1,
+                            agreement2: agreement2
+                            // accepted: accepted,
+                            // displayed: displayed
+                            // imageURL: imageURL
+                        )
+                        reports.append(report)
+                    }
+                    completion(reports, nil)
+            }else {
+                // print("No documents found with displayed true.")
+                completion(nil, nil)
             }
         }
     }
     
     static func fetchStudentName(by studentID: Int, completion: @escaping (String?) -> Void) {
-        print("it runs")
             let db = Firestore.firestore()
             db.collection("student").whereField("studentID", isEqualTo: studentID).getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error fetching student data: \(error.localizedDescription)")
                     completion(nil)
                 } else if let document = snapshot?.documents.first{ // Assuming studentID is unique
-                    print("hello")
                     do {
                         let studentData = try document.data(as: Student.self)
-                        print("Fetched student name: \(studentData.fullname)")
+                        // print("Fetched student name: \(studentData.fullname)")
                         completion(studentData.fullname)
                     } catch {
                         print("Error decoding student data: \(error)")
@@ -118,10 +150,40 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                     completion(nil)
                 }
                     else {
-                        print("something happened")
+                        // print("something happened")
                         completion(nil)
                 }
             }
+        }
+    
+    func updateAcceptedStatus(accepted: Bool, completion: @escaping (Bool) -> Void) {
+
+            let db = Firestore.firestore()
+            db.collection("misconduct").document(id).updateData([
+                "accepted": accepted
+            ]) { error in
+                if let error = error {
+                    print("Error updating accepted status: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Status updated successfully")
+                    completion(true)
+                }
+            }
+        
+            db.collection("misconduct").document(id).updateData([
+                "displayed": false
+            ]) { error in
+                if let error = error {
+                    print("Error updating displayed status: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Status updated successfully")
+                    completion(true)
+                }
+            }
+        
+        
         }
 }
 
