@@ -28,7 +28,7 @@ struct MainMenuView: View {
 
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: StudentProfileView())
+                        createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: ProfileView())
                         createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MisconductReport())
                         if let staff = viewModel.currentStaff, viewModel.currentUser?.userType == .staff{
                             createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())

@@ -140,7 +140,7 @@ class AuthViewModel: ObservableObject {
                }
             }
             // Fetch user data
-            //await fetchUser()
+            await fetchUser()
         } catch {
             print("DEBUG: Failed to create user with error \(error.localizedDescription)")
         }
