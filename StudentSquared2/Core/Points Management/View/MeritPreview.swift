@@ -13,6 +13,7 @@ struct MeritPreview: View {
     @State private var points: [String: PointModel] = [:]// Maps student IDs to names
     @State private var errorOccurred: Bool = false
     @State private var isLoading: Bool = true
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         ScrollView {
@@ -27,24 +28,38 @@ struct MeritPreview: View {
                         
                         CardViewMerit(
                             category: points[merit.pointID]?.reason ?? "cannot find category",
-                            date: formatDate(Date()),
+                            date: formatDate(merit.dateScanned),
                             pointsAddition: points[merit.pointID]?.amount ?? 0,
                             studentID: merit.studentID,
                             details: "nanti aku tambah",
                             student: students[merit.studentID] ?? Student(id: "223123", studentID: 5, password: "123", fullname: "ABC", email: "a@gmail.com", year: 2, course: "A", userType: .student, points: 10),
                             onAccept: {
-                                loadMerits()
-                                print("loading merit")
+                                if let point = points[merit.pointID] {
+                                    let studentID = merit.studentID // Assuming this is the correct ID you want to use
+                                    
+                                    // Now call the update function
+                                    point.updatePointsForStudentWithQuery(studentID: studentID, completion: { (success, error) in
+                                        if success {
+                                            merit.updateAcceptedStatus(accepted: true, completion: { (success) in
+                                                if(success){
+                                                    loadMerits()
+                                                }
+                                            })
+                                            print("Points successfully updated for student ID \(studentID).")
+                                        } else if let error = error {
+                                            print("Error updating points for student ID \(studentID): \(error.localizedDescription)")
+                                        }
+                                    })
+                                }
                             })
+                        
                     }
                 }
             }
         }
         .onAppear {
             loadMerits()
-            print("\(scannedQR.count)")
-            print("\(students.count)")
-            print("\(points.count)")
+
         }
     }
     
@@ -59,18 +74,20 @@ struct MeritPreview: View {
     
     private func loadMerits() {
         print("Loading merits...")
-        Merit.fetchAllMerits { merits, error in
-            if let merits = merits {
-                DispatchQueue.main.async {
-                    self.scannedQR = merits
-                    self.isLoading = false // Ensure to stop loading indicator
-                }
-                self.fetchStudentsAndPointsForMerits(merits)
-            } else if let error = error {
-                DispatchQueue.main.async {
-                    self.errorOccurred = true
-                    self.isLoading = false
-                    print("Error fetching merits: \(error.localizedDescription)")
+        if let staff = viewModel.currentStaff, viewModel.currentUser?.userType == .staff{
+            Merit.fetchAllMerits(staff: staff) { merits, error in
+                if let merits = merits {
+                    DispatchQueue.main.async {
+                        self.scannedQR = merits
+                        self.isLoading = false // Ensure to stop loading indicator
+                    }
+                    self.fetchStudentsAndPointsForMerits(merits)
+                } else if let error = error {
+                    DispatchQueue.main.async {
+                        self.errorOccurred = true
+                        self.isLoading = false
+                        print("Error fetching merits: \(error.localizedDescription)")
+                    }
                 }
             }
         }
@@ -100,6 +117,7 @@ struct MeritPreview: View {
             DispatchQueue.main.async {
                 if let point = point {
                     self.points[pointID] = point
+                    print("\(point.reason)")
                 } else {
                     self.errorOccurred = true
                 }
@@ -151,7 +169,7 @@ struct CardViewMerit: View {
             Spacer()
 
             VStack(spacing: 10) {
-                Text("\(pointsAddition > 0 ? "-" : "+")\(pointsAddition) Points")
+                Text("\("+")\(pointsAddition) Points")
                     .font(Font.custom("Outfit", size: 15).weight(.semibold))
                     .foregroundColor(.black)
 
@@ -188,9 +206,4 @@ struct CardViewMerit: View {
         )
         .padding(.horizontal)
     }
-}
-
-
-#Preview {
-    MeritPreview()
 }

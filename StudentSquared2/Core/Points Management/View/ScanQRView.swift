@@ -82,16 +82,13 @@ struct ScanQR: View {
                                
                                point.savePointTodb()
                  
-                               point.updatePointsForStudentWithQuery(studentID:student.studentID){success, error in
-                                   if success{
-                                       print("added pts")
-                                   }}
                                
                                let merit = Merit(
                                 pointID: point.id,
                                 studentID: student.studentID,
                                 qrcodeID: qrCodeModel.id,
-                               dateScanned: Date())
+                               dateScanned: Date(),
+                                staffID: qrCodeModel.staffID)
                               
                                merit.saveMeritToDb()
                                

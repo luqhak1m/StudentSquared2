@@ -114,12 +114,25 @@ class PointModel: Identifiable, Codable, ObservableObject {
                     completion(nil)
                 } else if let document = snapshot?.documents.first{ // Assuming studentID is unique
                     do {
-                        let pointData = try document.data(as: PointModel.self)
+                        let data = document.data()
+                        
+                        guard 
+                              let category = data["category"] as? String,
+                              let amount = data["amount"] as? Int,
+                              let reason = data["reason"] as? String else {
+                                  print("Error decoding point data")
+                                  completion(nil)
+                                  return
+                              
+                              }
+                        let pointCategory = PointCategory(rawValue: category)
+                        let pointModel = PointModel(
+                            amount: amount,
+                            category: pointCategory ?? .merit,
+                            reason: reason
+                        )
                         // print("Fetched student name: \(studentData.fullname)")
-                        completion(pointData)
-                    } catch {
-                        print("Error decoding student data: \(error)")
-                        completion(nil)
+                        completion(pointModel)
                     }
                 } else if let documents = snapshot?.documents, documents.isEmpty {
                     print("No documents found with pointID: \(pointID)")
@@ -140,13 +153,17 @@ class Merit : Identifiable, Codable, ObservableObject{
     var studentID: Int
     var qrcodeID: String
     var dateScanned: Date
+    var staffID: Int
+    var status: Bool=false
+    var displayed: Bool=true
     
-    init(pointID: String ,studentID: Int, id: String = UUID().uuidString, qrcodeID: String, dateScanned: Date) {
+    init(pointID: String ,studentID: Int, id: String = UUID().uuidString, qrcodeID: String, dateScanned: Date, staffID: Int) {
         self.pointID = pointID
         self.studentID = studentID
         self.id = id
         self.qrcodeID = qrcodeID
         self.dateScanned = dateScanned
+        self.staffID = staffID
     }
     
     func saveMeritToDb() {
@@ -171,7 +188,8 @@ class Merit : Identifiable, Codable, ObservableObject{
             "studentID": studentID,
             "meritpointsID": id,
             "dateScanned": dateScanned,
-            "qrcodeID": qrcodeID
+            "qrcodeID": qrcodeID,
+            "staffID": staffID
         ]
         return dict
     }
@@ -200,9 +218,12 @@ class Merit : Identifiable, Codable, ObservableObject{
             }
         }
     
-    static func fetchAllMerits(completion: @escaping ([Merit]?, Error?) -> Void) {
-            let db = Firestore.firestore()
-            db.collection("merit_points").getDocuments { (snapshot, error) in
+    static func fetchAllMerits(staff: Staff, completion: @escaping ([Merit]?, Error?) -> Void) {
+        let db = Firestore.firestore()
+            // Use the staffID from the passed staff instance.
+            let staffID = staff.staffID // Assuming your Staff model has a staffID property.
+
+            db.collection("merit_points").whereField("staffID", isEqualTo: staffID).whereField("displayed", isEqualTo: true).getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error fetching merits: \(error.localizedDescription)")
                     completion(nil, error)
@@ -221,7 +242,7 @@ class Merit : Identifiable, Codable, ObservableObject{
                         merits.append(merit)
                     }
                 }
-                print("there are \(merits.count) merits found")
+                print("There are \(merits.count) merits found for staff ID: \(staffID)")
                 completion(merits, nil)
             }
         }
@@ -233,14 +254,15 @@ class Merit : Identifiable, Codable, ObservableObject{
                   let studentID = data["studentID"] as? Int,
                   let id = data["meritpointsID"] as? String,
                   let qrcodeID = data["qrcodeID"] as? String,
-                  let dateScannedTimestamp = data["dateScanned"] as? Timestamp else {
+                  let dateScannedTimestamp = data["dateScanned"] as? Timestamp,
+                  let staffID = data["staffID"] as? Int else {
                 print("Error parsing document to Merit")
                 return nil
             }
             
             let dateScanned = dateScannedTimestamp.dateValue()
             
-            return Merit(pointID: pointID, studentID: studentID, id: id, qrcodeID: qrcodeID, dateScanned: dateScanned)
+            return Merit(pointID: pointID, studentID: studentID, id: id, qrcodeID: qrcodeID, dateScanned: dateScanned, staffID: staffID)
         }
     
     static func fetchStudentName(by studentID: Int, completion: @escaping (String?) -> Void) {
@@ -293,5 +315,35 @@ class Merit : Identifiable, Codable, ObservableObject{
                         completion(nil)
                 }
             }
+        }
+    
+    func updateAcceptedStatus(accepted: Bool, completion: @escaping (Bool) -> Void) {
+
+            let db = Firestore.firestore()
+            db.collection("merit_points").document(id).updateData([
+                "status": status
+            ]) { error in
+                if let error = error {
+                    print("Error updating accepted status: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    // print("Status updated successfully")
+                    completion(true)
+                }
+            }
+        
+            db.collection("merit_points").document(id).updateData([
+                "displayed": false
+            ]) { error in
+                if let error = error {
+                    print("Error updating displayed status: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    // print("Status updated successfully")
+                    completion(true)
+                }
+            }
+        
+        
         }
 }

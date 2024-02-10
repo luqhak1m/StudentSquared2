@@ -20,7 +20,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
     var agreement1: Bool=false
     var agreement2: Bool=false
     var displayed = true
-    var accepted: Bool=false
+    var status: Bool=false
     // Optional: Image URL if storing image references in Firestore
     var imageURL: String?
     
@@ -65,7 +65,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
             "details": details,
             "agreement1": agreement1,
             "agreement2": agreement2,
-            "accepted" : accepted,
+            "status" : status,
             "displayed" : displayed,
             "reportID" : id
         ]
@@ -160,7 +160,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
 
             let db = Firestore.firestore()
             db.collection("misconduct").document(id).updateData([
-                "accepted": accepted
+                "status": status
             ]) { error in
                 if let error = error {
                     print("Error updating accepted status: \(error.localizedDescription)")
