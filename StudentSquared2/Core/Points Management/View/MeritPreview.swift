@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct MeritPreview: View {
     @State private var scannedQR: [Merit] = []
@@ -37,7 +40,10 @@ struct MeritPreview: View {
                                 if let point = points[merit.pointID] {
                                     let studentID = merit.studentID // Assuming this is the correct ID you want to use
                                     
-                                    // Now call the update function
+                                    //save activity to activity log
+                                    logActivityForPointsAddition(studentID: studentID, points: point.amount)
+
+                                    //update points
                                     point.updatePointsForStudentWithQuery(studentID: studentID, completion: { (success, error) in
                                         if success {
                                             merit.updateAcceptedStatus(accepted: true, completion: { (success) in
@@ -125,9 +131,29 @@ struct MeritPreview: View {
         }
     }
 
-
-
-
+    // Function to log the activity of adding points
+    func logActivityForPointsAddition(studentID: Int, points: Int) {
+        let db = Firestore.firestore()
+        db.collection("student").whereField("studentID", isEqualTo: studentID).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error finding student with ID \(studentID): \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = snapshot?.documents.first else {
+                print("No student found with ID: \(studentID)")
+                return
+            }
+            
+            guard let userID = document.data()["id"] as? String else {
+                print("No user ID found for student with ID \(studentID)")
+                return
+            }
+            
+            let activityLog = ActivityLogModel(id: userID, activityID: UUID().uuidString, action: "Added \(points) points", date: Timestamp())
+            activityLog.saveActivity()
+        }
+    }
 }
 
 struct CardViewMerit: View {
@@ -141,8 +167,8 @@ struct CardViewMerit: View {
 
     // var evidence:
     @State var showDetails = false
+    @EnvironmentObject var viewModel: AuthViewModel
     
-
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
@@ -187,7 +213,17 @@ struct CardViewMerit: View {
 
                     Button("Decline") {
                         onAccept?() // Call the closure here
-                    
+                        
+                        if let currentUser = viewModel.currentUser {
+                            let userID = currentUser.id
+                            let actionDescription = "Declined \(pointsAddition) points for \(studentID)"
+                            let activityLog = ActivityLogModel(id: userID, action: actionDescription, date: Timestamp())
+                            activityLog.saveActivity()
+                        } else {
+                            // Handle the case where the current user is nil or doesn't have an ID
+                            print("Current user is nil or doesn't have an ID")
+                        }
+
                         
                     }
                     .frame(width: 103, height: 28)

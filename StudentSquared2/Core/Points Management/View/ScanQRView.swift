@@ -87,7 +87,7 @@ struct ScanQR: View {
                                 pointID: point.id,
                                 studentID: student.studentID,
                                 qrcodeID: qrCodeModel.id,
-                               dateScanned: Date(),
+                                dateScanned: Date(),
                                 staffID: qrCodeModel.staffID)
                               
                                merit.saveMeritToDb()

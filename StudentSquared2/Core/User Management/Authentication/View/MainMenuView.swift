@@ -37,14 +37,14 @@ struct MainMenuView: View {
                             switch staff.position{
                                 case("Lecturer"):
                                     createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
-                                    createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                                    createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: ActivityLogView())
                                     createNavigationLinkWithImage(imageName: "History", label: "View Students Activity Log", destination: MainMenuView())
-                                createNavigationLinkWithImage(imageName: "Log", label: "View Merit Request", destination: MeritPreview())
+                                    createNavigationLinkWithImage(imageName: "Log", label: "View Merit Request", destination: MeritPreview())
 
 
                                 case("Admin"):
                                     createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: MainMenuView())
-                                createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
+                                    createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
 
                             default:
                                 let user = false
@@ -52,7 +52,7 @@ struct MainMenuView: View {
                         }else {
                             createNavigationLinkWithImage(imageName: "QR", label: "Scan QR Code", destination: ScanQR())
                             createNavigationLinkWithImage(imageName: "Cart", label: "Redeem Prizes", destination: MainMenuView())
-                            createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                            createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: ActivityLogView())
                         }
                         createNavigationLinkWithImage(imageName: "Setting", label: "Settings", destination: MainMenuView())
                     }

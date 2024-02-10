@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
 
 struct MisconductReport: View {
     @State private var selectedOption = "" // Default value
@@ -17,7 +19,7 @@ struct MisconductReport: View {
     @State private var suggestedPoints = ""
     @State private var agreement1: Bool = false
     @State private var agreement2: Bool = false
-
+    @EnvironmentObject var viewModel: AuthViewModel
     
     let options = ["Vandalism", "Academic Misconduct", "Dress Code", "Listens to The Weeknd"] // Your options here
 
@@ -148,6 +150,17 @@ struct MisconductReport: View {
                     let misconductData = MisconductReportModel(misconductType: selectedOption, date: selectedDate, studentID: Int(studentID), details: misconductDetails, demeritPoints: Int(suggestedPoints), agreement1: agreement1, agreement2: agreement2)
                     
                     misconductData.saveOrUpdateMisconductReport()
+                    
+                    //save data in activity log
+                    if let currentUser = viewModel.currentUser {
+                        let userID = currentUser.id
+                        
+                        let activityLog = ActivityLogModel(id: userID, activityID: UUID().uuidString, action: "Submitted Misconduct Report", date: Timestamp())
+                        activityLog.saveActivity()
+                    } else {
+                        // Handle the case where the current user is nil or doesn't have an ID
+                        print("Current user is nil or doesn't have an ID")
+                    }
                 }, label: {
                     Text("Submit")
                         .foregroundColor(.white)

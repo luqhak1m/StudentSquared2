@@ -7,7 +7,8 @@
 
 import SwiftUI
 import CoreImage.CIFilterBuiltins
-
+import Firebase
+import FirebaseFirestore
 
 struct GenerateQRCode: View {
     @State private var selectedCategory: String = ""
@@ -193,7 +194,15 @@ struct GenerateQRCode: View {
                         qrCodeSheetContent = AnyView(QRCodeView(url: qrCodeData.id))
                         qrCodeData.saveQRCodeDataToFirestore()
                         
-                        
+                        if let currentUser = viewModel.currentUser {
+                            let userID = currentUser.id
+                            
+                            let activityLog = ActivityLogModel(id: userID, action: "Generated QR code for \(selectedCategory)", date: Timestamp())
+                            activityLog.saveActivity()
+                        } else {
+                            // Handle the case where the current user is nil or doesn't have an ID
+                            print("Current user is nil or doesn't have an ID")
+                        }
                         
                     } else {
                         print("you are NOT a staff ")

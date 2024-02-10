@@ -215,6 +215,59 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                 let studentDocument: DocumentSnapshot
                 do {
                     try studentDocument = transaction.getDocument(studentRef)
+                    
+                    // Convert studentID to string
+                    guard let studentID = self.studentID else {
+                                    print("StudentID is nil")
+                                    completion(false, nil)
+                                    return
+                                }
+                    
+                    // Query the student collection based on studentID
+                    let db = Firestore.firestore()
+                    db.collection("student").whereField("studentID", isEqualTo: studentID).getDocuments { (snapshot, error) in
+                        if let error = error {
+                            print("Error finding student with studentID \(studentID): \(error.localizedDescription)")
+                            completion(false, error)
+                            return
+                        }
+                        
+                        // Check if any student document is found
+                        guard let studentDocument = snapshot?.documents.first else {
+                            print("No student found with studentID \(studentID)")
+                            completion(false, nil)
+                            return
+                        }
+                        
+                        // Get the userID from the student document
+                        guard let userID = studentDocument.data()["id"] as? String else {
+                            print("Student document does not contain 'id' field")
+                            completion(false, nil)
+                            return
+                        }
+                        
+                        // Query the users collection based on the userID to get the user document
+                        db.collection("users").document(userID).getDocument { (userDocument, error) in
+                            if let error = error {
+                                print("Error finding user with ID \(userID): \(error.localizedDescription)")
+                                completion(false, error)
+                                return
+                            }
+                            
+                            // Check if user document is found
+                            guard let userDocument = userDocument else {
+                                print("No user found with ID \(userID)")
+                                completion(false, nil)
+                                return
+                            }
+                            
+                            // Create an activity log entry for the deducted points
+                            let activityLog = ActivityLogModel(id: userID, activityID: UUID().uuidString, action: "\(self.demeritPoints) points deduction", date: Timestamp())
+                            
+                            // Save the activity log
+                            activityLog.saveActivity()
+                        }
+                    }
                 } catch let fetchError as NSError {
                     errorPointer?.pointee = fetchError
                     return nil

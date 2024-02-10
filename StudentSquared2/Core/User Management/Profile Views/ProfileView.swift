@@ -280,7 +280,7 @@ struct StudentProfileDetails: View {
                 }
                 .offset(x: -46, y: 190)
                 
-                NavigationLink(destination: StudentProfileView()) {
+                NavigationLink(destination: ActivityLogView()) {
                     HStack {
                         Text("View Activity Log")
                             .font(Font.custom("Outfit", size: 14).weight(.semibold))
@@ -547,7 +547,7 @@ struct LecturerProfileDetails: View {
                 }
                 .offset(x: -46, y: 190)
                 
-                NavigationLink(destination: StaffProfileView()) {
+                NavigationLink(destination: ActivityLogView()) {
                     HStack {
                         Text("View Activity Log")
                             .font(Font.custom("Outfit", size: 14).weight(.semibold))
@@ -814,7 +814,7 @@ struct AdminProfileDetails: View {
                 }
                 .offset(x: -46, y: 190)
                 
-                NavigationLink(destination: StaffProfileView()) {
+                NavigationLink(destination: ActivityLogView()) {
                     HStack {
                         Text("View Activity Log")
                             .font(Font.custom("Outfit", size: 14).weight(.semibold))
@@ -1066,7 +1066,7 @@ struct StaffProfileDetails: View {
                 }
                 .offset(x: -46, y: 190)
                 
-                NavigationLink(destination: StaffProfileView()) {
+                NavigationLink(destination: ActivityLogView()) {
                     HStack {
                         Text("View Activity Log")
                             .font(Font.custom("Outfit", size: 14).weight(.semibold))

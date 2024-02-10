@@ -38,23 +38,6 @@ class AuthViewModel: ObservableObject {
         Task {
             // Fetch user data
             await fetchUser()
-            // Check if the user is a student or staff
-            /*if let uid = self.userSession?.uid {
-                let studentDocument = Firestore.firestore().collection("students").document(uid)
-                let staffDocument = Firestore.firestore().collection("staff").document(uid)
-                
-                let studentSnapshot = try await studentDocument.getDocument()
-                let isStudent = studentSnapshot.exists
-                
-                // Fetch user data based on user type
-                if isStudent {
-                    await fetchStudent()
-                } else {
-                    await fetchStaff()
-                }
-            } else {
-                print("User session is nil.")
-            }*/
         }
     }
     
@@ -67,35 +50,8 @@ class AuthViewModel: ObservableObject {
         } catch {
             print("DEBUG: Failed to log in with error \(error.localizedDescription)")
         }
-        /*do {
-            let result = try await Auth.auth().signIn(withEmail: email, password: password)
-            self.userSession = result.user
-            
-            // Get the UID of the current user
-            guard let uid = Auth.auth().currentUser?.uid else {
-                print("Failed to get UID of the current user.")
-                return
-            }
-            
-            // Check if the user is a student or staff
-            let studentDocument = Firestore.firestore().collection("students").document(uid)
-            let staffDocument = Firestore.firestore().collection("staff").document(uid)
-           
-            let studentSnapshot = try await studentDocument.getDocument()
-            let isStudent = studentSnapshot.exists
-            
-            // Fetch user data based on user type
-            if isStudent {
-                await fetchStudent()
-            } else {
-                await fetchStaff()
-            }
-        } catch {
-            print("DEBUG: Failed to log in with error \(error.localizedDescription)")
-        }*/
     }
 
-    
     func createUser(withEmail email: String, password: String, fullname: String, userType: UserType, studentID: Int?, year: Int?, course: String?, staffID: Int?, position: String?, faculty: String?) async throws {
         do {
             // Create user based on userType
@@ -139,26 +95,15 @@ class AuthViewModel: ObservableObject {
                    break // Do nothing for other positions
                }
             }
-            // Fetch user data
-            //await fetchUser()
+            //store activity
+            let activityLog = ActivityLogModel(id: result.user.uid, activityID: UUID().uuidString, action: "Registered Account", date: Timestamp())
+            activityLog.saveActivity()
+            await fetchUser()
+
         } catch {
             print("DEBUG: Failed to create user with error \(error.localizedDescription)")
         }
     }
-    
-    /*func createUser(withEmail email: String, password: String, fullname: String) async throws {
-        do {
-            let result = try await Auth.auth().createUser(withEmail: email, password: password) //firebase generic user
-            self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email, userType: .staff) //user in app w additional infos
-            let encodedUser = try Firestore.Encoder().encode(user) //utilize protocol
-            try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser) //store to firebase, encodedUser = user
-            await fetchUser()
-        } catch {
-            print("DEBUG: Failed to create user with error \(error.localizedDescription)")
-        }
-    }*/
-    
     
     func signOut(){
         do {
@@ -223,30 +168,6 @@ class AuthViewModel: ObservableObject {
         }
     }
 
-    
-    /*func fetchUser() async {
-        if let currentUser = self.currentUser {
-            print("DEBUG: Current user is \(currentUser)")
-        } else {
-            print("DEBUG: Current user is nil")
-        }
-        print("Fetching user data...")
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-
-        // Check if the user is a student or staff
-        let staffDocument = Firestore.firestore().collection("staff").document(uid)
-        let studentDocument = Firestore.firestore().collection("student").document(uid)
-        
-        let studentSnapshot = try? await studentDocument.getDocument()
-        let isStudent = studentSnapshot?.exists ?? false
-        
-        if isStudent {
-            await fetchStudent()
-        } else {
-            await fetchStaff()
-        }
-    }*/
-
     func fetchStudent() async {
         print("Fetching student data...")
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -278,38 +199,4 @@ class AuthViewModel: ObservableObject {
             print("Error signing out: \(signOutError)")
         }
     }
-    
-    // Fetch user function for students
-    /*func fetchStudent() async {
-        print("Fetching student data...")
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        // Assuming student data is stored in a "students" collection
-        guard let snapshot = try? await Firestore.firestore().collection("students").document(uid).getDocument() else { return }
-        self.currentStudent = try? snapshot.data(as: Student.self) as Student?
-    }
-
-    // Fetch user function for staff
-    func fetchStaff() async {
-        print("Fetching staff data...")
-        print("DEBUG: Current user is \(self.currentUser)")
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        // Assuming staff data is stored in a "staff" collection
-        guard let snapshot = try? await Firestore.firestore().collection("staff").document(uid).getDocument() else { return }
-        self.currentStaff = try? snapshot.data(as: Staff.self) as Staff?
-    }
-
-    
-    func fetchUser() async{
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-
-        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
-        self.currentUser = try? snapshot.data(as: User.self)
-        
-        //print("DEBUG: Current user is \(self.currentUser)")
-    }*/
-
-
 }
-

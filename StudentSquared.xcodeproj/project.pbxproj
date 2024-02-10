@@ -18,6 +18,8 @@
 		2462D7662B71EC120039DB37 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7652B71EC120039DB37 /* Student.swift */; };
 		2462D7682B71EDDA0039DB37 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7672B71EDDA0039DB37 /* Staff.swift */; };
 		2462D76A2B723C590039DB37 /* StaffProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462D7692B723C590039DB37 /* StaffProfileView.swift */; };
+		24C242A62B7789A300AFAF23 /* ActivityLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242A52B7789A300AFAF23 /* ActivityLogModel.swift */; };
+		24C242A82B77B32800AFAF23 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242A72B77B32800AFAF23 /* ActivityLogView.swift */; };
 		C910C7472B72A99A0010A9F3 /* QRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910C7462B72A99A0010A9F3 /* QRModel.swift */; };
 		C910C74E2B72C6FB0010A9F3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910C74C2B72C6FB0010A9F3 /* ImagePicker.swift */; };
 		C910C74F2B72C6FB0010A9F3 /* MisconductReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910C74D2B72C6FB0010A9F3 /* MisconductReport.swift */; };
@@ -83,6 +85,8 @@
 		2462D7652B71EC120039DB37 /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		2462D7672B71EDDA0039DB37 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
 		2462D7692B723C590039DB37 /* StaffProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffProfileView.swift; sourceTree = "<group>"; };
+		24C242A52B7789A300AFAF23 /* ActivityLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogModel.swift; sourceTree = "<group>"; };
+		24C242A72B77B32800AFAF23 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
 		C910C7462B72A99A0010A9F3 /* QRModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRModel.swift; sourceTree = "<group>"; };
 		C910C74C2B72C6FB0010A9F3 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C910C74D2B72C6FB0010A9F3 /* MisconductReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MisconductReport.swift; sourceTree = "<group>"; };
@@ -215,9 +219,9 @@
 		2462D75C2B70F3780039DB37 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				24C242A92B77C22000AFAF23 /* Analytics and Reporting */,
 				C9BE24B72B7768D0002EB576 /* User Management */,
 				C92CE7012B74CADC00231FE1 /* Points Management */,
-				2462D75D2B70F38F0039DB37 /* Authentication */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -239,6 +243,23 @@
 				2462D7672B71EDDA0039DB37 /* Staff.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		24C242A42B7785CE00AFAF23 /* Activity Log Views */ = {
+			isa = PBXGroup;
+			children = (
+				24C242A72B77B32800AFAF23 /* ActivityLogView.swift */,
+			);
+			path = "Activity Log Views";
+			sourceTree = "<group>";
+		};
+		24C242A92B77C22000AFAF23 /* Analytics and Reporting */ = {
+			isa = PBXGroup;
+			children = (
+				24C242A42B7785CE00AFAF23 /* Activity Log Views */,
+				C9BE24B92B7768E7002EB576 /* ViewModel */,
+			);
+			path = "Analytics and Reporting";
 			sourceTree = "<group>";
 		};
 		C92CE7012B74CADC00231FE1 /* Points Management */ = {
@@ -355,13 +376,13 @@
 		C9BE24B72B7768D0002EB576 /* User Management */ = {
 			isa = PBXGroup;
 			children = (
-				C9BE24B92B7768E7002EB576 /* ViewModel */,
-				C9BE24B82B7768DE002EB576 /* View */,
+				2462D75D2B70F38F0039DB37 /* Authentication */,
+				C9BE24B82B7768DE002EB576 /* Profile Views */,
 			);
 			path = "User Management";
 			sourceTree = "<group>";
 		};
-		C9BE24B82B7768DE002EB576 /* View */ = {
+		C9BE24B82B7768DE002EB576 /* Profile Views */ = {
 			isa = PBXGroup;
 			children = (
 				C9BE24BD2B7768F3002EB576 /* AdminMainProfileView.swift */,
@@ -370,12 +391,13 @@
 				C9BE24BA2B7768F2002EB576 /* StaffMainProfileView.swift */,
 				C9BE24BB2B7768F2002EB576 /* StudentMainProfileView.swift */,
 			);
-			path = View;
+			path = "Profile Views";
 			sourceTree = "<group>";
 		};
 		C9BE24B92B7768E7002EB576 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				24C242A52B7789A300AFAF23 /* ActivityLogModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -532,6 +554,7 @@
 				C92CE7052B74CBC400231FE1 /* PointsModel.swift in Sources */,
 				C9F7C6202B72936F005B8CAA /* MeritDetails.swift in Sources */,
 				C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */,
+				24C242A62B7789A300AFAF23 /* ActivityLogModel.swift in Sources */,
 				C9BE24B12B7764C8002EB576 /* PointHistory.swift in Sources */,
 				C9BE24BF2B7768F3002EB576 /* StaffMainProfileView.swift in Sources */,
 				2462D7642B7100CC0039DB37 /* StudentProfileView.swift in Sources */,
@@ -555,6 +578,7 @@
 				C9BE24C12B7768F3002EB576 /* ProfileView.swift in Sources */,
 				2462D7662B71EC120039DB37 /* Student.swift in Sources */,
 				C9489A942B58253C00F536FC /* RegisterPage.swift in Sources */,
+				24C242A82B77B32800AFAF23 /* ActivityLogView.swift in Sources */,
 				C9489A662B56D97D00F536FC /* ContentView.swift in Sources */,
 				C9F7C6232B72936F005B8CAA /* ScanQRView.swift in Sources */,
 				C9489A642B56D97D00F536FC /* StudentSquared2App.swift in Sources */,
@@ -723,7 +747,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudentSquared2/Preview Content\"";
-				DEVELOPMENT_TEAM = VT8XD2QY8C;
+				DEVELOPMENT_TEAM = UXT7L3C9DT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StudentSquared2/Info.plist;
@@ -755,7 +779,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudentSquared2/Preview Content\"";
-				DEVELOPMENT_TEAM = VT8XD2QY8C;
+				DEVELOPMENT_TEAM = UXT7L3C9DT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StudentSquared2/Info.plist;
