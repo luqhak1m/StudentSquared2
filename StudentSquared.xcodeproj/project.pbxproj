@@ -27,6 +27,9 @@
 		C910C7532B7356170010A9F3 /* MisconductPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910C7522B7356170010A9F3 /* MisconductPreview.swift */; };
 		C92CE7052B74CBC400231FE1 /* PointsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CE7042B74CBC400231FE1 /* PointsModel.swift */; };
 		C92CE7072B75221600231FE1 /* MeritPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CE7062B75221600231FE1 /* MeritPreview.swift */; };
+		C933E7B22B780BC6008217AA /* PrizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C933E7B12B780BC6008217AA /* PrizeModel.swift */; };
+		C933E7B52B780BCF008217AA /* UploadPrizeForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C933E7B32B780BCF008217AA /* UploadPrizeForm.swift */; };
+		C933E7B62B780BCF008217AA /* UploadPrizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C933E7B42B780BCF008217AA /* UploadPrizeView.swift */; };
 		C9489A642B56D97D00F536FC /* StudentSquared2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A632B56D97D00F536FC /* StudentSquared2App.swift */; };
 		C9489A662B56D97D00F536FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9489A652B56D97D00F536FC /* ContentView.swift */; };
 		C9489A682B56D97E00F536FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9489A672B56D97E00F536FC /* Assets.xcassets */; };
@@ -94,6 +97,9 @@
 		C910C7522B7356170010A9F3 /* MisconductPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MisconductPreview.swift; sourceTree = "<group>"; };
 		C92CE7042B74CBC400231FE1 /* PointsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsModel.swift; sourceTree = "<group>"; };
 		C92CE7062B75221600231FE1 /* MeritPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeritPreview.swift; sourceTree = "<group>"; };
+		C933E7B12B780BC6008217AA /* PrizeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrizeModel.swift; sourceTree = "<group>"; };
+		C933E7B32B780BCF008217AA /* UploadPrizeForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPrizeForm.swift; sourceTree = "<group>"; };
+		C933E7B42B780BCF008217AA /* UploadPrizeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadPrizeView.swift; sourceTree = "<group>"; };
 		C9489A602B56D97D00F536FC /* StudentSquared2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentSquared2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9489A632B56D97D00F536FC /* StudentSquared2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSquared2App.swift; sourceTree = "<group>"; };
 		C9489A652B56D97D00F536FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -219,6 +225,7 @@
 		2462D75C2B70F3780039DB37 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C933E7AE2B780B9A008217AA /* Prize Management */,
 				24C242A92B77C22000AFAF23 /* Analytics and Reporting */,
 				C9BE24B72B7768D0002EB576 /* User Management */,
 				C92CE7012B74CADC00231FE1 /* Points Management */,
@@ -292,6 +299,32 @@
 				C910C7462B72A99A0010A9F3 /* QRModel.swift */,
 				C92CE7042B74CBC400231FE1 /* PointsModel.swift */,
 				C910C7502B72CA3F0010A9F3 /* MisconductModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C933E7AE2B780B9A008217AA /* Prize Management */ = {
+			isa = PBXGroup;
+			children = (
+				C933E7B02B780BBA008217AA /* ViewModel */,
+				C933E7AF2B780BAF008217AA /* View */,
+			);
+			path = "Prize Management";
+			sourceTree = "<group>";
+		};
+		C933E7AF2B780BAF008217AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C933E7B32B780BCF008217AA /* UploadPrizeForm.swift */,
+				C933E7B42B780BCF008217AA /* UploadPrizeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C933E7B02B780BBA008217AA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C933E7B12B780BC6008217AA /* PrizeModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -557,6 +590,7 @@
 				24C242A62B7789A300AFAF23 /* ActivityLogModel.swift in Sources */,
 				C9BE24B12B7764C8002EB576 /* PointHistory.swift in Sources */,
 				C9BE24BF2B7768F3002EB576 /* StaffMainProfileView.swift in Sources */,
+				C933E7B62B780BCF008217AA /* UploadPrizeView.swift in Sources */,
 				2462D7642B7100CC0039DB37 /* StudentProfileView.swift in Sources */,
 				C9BE24C32B7768F3002EB576 /* LecturerMainProfileView.swift in Sources */,
 				241BF8582B70EEFB00CBA0A0 /* AuthViewModel.swift in Sources */,
@@ -571,9 +605,11 @@
 				C910C7472B72A99A0010A9F3 /* QRModel.swift in Sources */,
 				C9F7C61A2B729350005B8CAA /* BottomNavigationBar.swift in Sources */,
 				C9489AA42B58480D00F536FC /* ChangePasswordRequestView.swift in Sources */,
+				C933E7B52B780BCF008217AA /* UploadPrizeForm.swift in Sources */,
 				C910C7532B7356170010A9F3 /* MisconductPreview.swift in Sources */,
 				C9F7C6242B72936F005B8CAA /* MeritCategory.swift in Sources */,
 				C9489AA82B584A2600F536FC /* ChangePasswordCreatePassView.swift in Sources */,
+				C933E7B22B780BC6008217AA /* PrizeModel.swift in Sources */,
 				C9489A922B58200B00F536FC /* RegisterOptions.swift in Sources */,
 				C9BE24C12B7768F3002EB576 /* ProfileView.swift in Sources */,
 				2462D7662B71EC120039DB37 /* Student.swift in Sources */,

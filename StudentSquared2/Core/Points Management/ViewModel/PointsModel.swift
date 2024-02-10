@@ -256,8 +256,7 @@ class Merit : Identifiable, Codable, ObservableObject{
                   let id = data["meritpointsID"] as? String,
                   let qrcodeID = data["qrcodeID"] as? String,
                   let dateScannedTimestamp = data["dateScanned"] as? Timestamp,
-                  let staffID = data["staffID"] as? Int ,
-                  let displayed = data["displayed"] as? Bool else {
+                  let staffID = data["staffID"] as? Int else {
                 print("Error parsing document to Merit")
                 return nil
             }

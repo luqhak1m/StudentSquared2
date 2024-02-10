@@ -30,32 +30,27 @@ struct MainMenuView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: ProfileView())
                         createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MisconductReport())
-                        if let staff = viewModel.currentStaff, viewModel.currentUser?.userType == .staff{
-                            
-
-
-                            switch staff.position{
-                                case("Lecturer"):
-                                    createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
-                                    createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: ActivityLogView())
-                                    createNavigationLinkWithImage(imageName: "History", label: "View Students Activity Log", destination: MainMenuView())
-                                    createNavigationLinkWithImage(imageName: "Log", label: "View Merit Request", destination: MeritPreview())
-
-
-                                case("Admin"):
-                                    createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: MainMenuView())
-                                    createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
-
-                            default:
-                                let user = false
+                        if let staff = viewModel.currentStaff, viewModel.currentUser?.userType == .staff {
+                            if staff.position == "Lecturer" {
+                                createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
+                                createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                                createNavigationLinkWithImage(imageName: "History", label: "View Students Activity Log", destination: MainMenuView())
+                                createNavigationLinkWithImage(imageName: "Log", label: "View Merit Request", destination: MeritPreview())
+                            } else if staff.position == "Admin" {
+                                createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: MainMenuView())
+                                createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
+                            } else {
+                                // Handle other staff positions if necessary
                             }
-                        }else {
+                        } else {
                             createNavigationLinkWithImage(imageName: "QR", label: "Scan QR Code", destination: ScanQR())
                             createNavigationLinkWithImage(imageName: "Cart", label: "Redeem Prizes", destination: MainMenuView())
-                            createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: ActivityLogView())
+                            createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
                         }
+
                         createNavigationLinkWithImage(imageName: "Setting", label: "Settings", destination: MainMenuView())
                     }
+
                     .padding()
                 }
                 .offset(y: 175)

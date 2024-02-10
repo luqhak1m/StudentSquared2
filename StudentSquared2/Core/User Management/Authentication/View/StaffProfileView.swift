@@ -18,9 +18,6 @@ struct StaffProfileView: View {
                     .cornerRadius(56)
                     .offset(y: 100) // Adjust this value to change the vertical positioning
 
-                if let staff = viewModel.currentUser, viewModel.currentUser?.userType == .staff{
-                    
-                }
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: StudentProfileView())
