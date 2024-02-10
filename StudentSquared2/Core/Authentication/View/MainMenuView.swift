@@ -25,25 +25,25 @@ struct MainMenuView: View {
                     .background(.white)
                     .cornerRadius(56)
                     .offset(y: 100) // Adjust this value to change the vertical positioning
-                
+
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: ProfileView())
+                        createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: StudentProfileView())
                         createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MisconductReport())
                         if let staff = viewModel.currentStaff, viewModel.currentUser?.userType == .staff{
                             createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
-                            
+
+
                             switch staff.position{
-                            case("Lecturer"):
-                                createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
-                                createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
-                                createNavigationLinkWithImage(imageName: "History", label: "View Students Activity Log", destination: MainMenuView())
-                                createNavigationLinkWithImage(imageName: "Log", label: "View Merit Request", destination: MeritPreview())
-                                
-                                
-                            case("Admin"):
-                                createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: MainMenuView())
-                                
+                                case("Lecturer"):
+                                    createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
+                                    createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: MainMenuView())
+                                    createNavigationLinkWithImage(imageName: "History", label: "View Students Activity Log", destination: MainMenuView())
+
+
+                                case("Admin"):
+                                    createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: MainMenuView())
+
                             default:
                                 let user = false
                             }
@@ -57,7 +57,30 @@ struct MainMenuView: View {
                     .padding()
                 }
                 .offset(y: 175)
+                    
+                
+                
+
+                // The bottom rectangle, adjusted to be partially off-screen
+                VStack {
+                    Spacer() // Pushes the bottom bar to the bottom of the screen
+                    HStack(spacing: 20) { // Adjust spacing as needed
+                        createLogoOnBottomBar(imageName: "BottomMore") // Replace with actual image names
+                        createLogoOnBottomBar(imageName: "BottomLeaderboard")
+                        createLogoOnBottomBar(imageName: "BottomHome")
+                        createLogoOnBottomBar(imageName: "BottomQR")
+                        createLogoOnBottomBar(imageName: "BottomUser")
+                    }
+                    .padding(.horizontal) // Add horizontal padding
+                    .frame(maxWidth: .infinity, maxHeight: 121)
+                    .background(Color(red: 0.85, green: 0.85, blue: 0.85))
+                    .cornerRadius(28)
+                    .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
+                    .edgesIgnoringSafeArea(.bottom)
+                }
+                .edgesIgnoringSafeArea(.all) // Ignore safe area to extend the background to the screen edges
             }
+        
         }
 
     }
