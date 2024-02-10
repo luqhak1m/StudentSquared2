@@ -32,56 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
             endingLineNumber = "96"
-            landmarkName = "signIn(withEmail:password:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1827D807-D7FD-4BDF-8EA5-2242DC6BF29E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StudentSquared2/Core/Authentication/View/StaffProfileView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "1827D807-D7FD-4BDF-8EA5-2242DC6BF29E - 53ff83b7f6d4c4db"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.environmentObject&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.ObservableObject&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.offset(x: CoreGraphics.CGFloat, y: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.EmptyView&gt;, &lt;&lt;opaque return type of SwiftUI.View.edgesIgnoringSafeArea(SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.environmentObject&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.ObservableObject&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.offset(x: CoreGraphics.CGFloat, y: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.EmptyView&gt;, &lt;&lt;opaque return type of SwiftUI.View.edgesIgnoringSafeArea(SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt;&gt; in StudentSquared2.StaffProfileView.body.getter : some"
-                  moduleName = "StudentSquared2"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aisyahnabila/Desktop/Software%20Eng/Assignment/StudentSquared2/StudentSquared2/Core/Authentication/View/StaffProfileView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "996">
-               </Location>
-               <Location
-                  uuid = "1827D807-D7FD-4BDF-8EA5-2242DC6BF29E - 53ff83b7f6d4c4db"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of StudentSquared2.StaffProfileView.createNavigationLinkWithImage&lt;&#x3c4;_0_0 where &#x3c4;_0_0: SwiftUI.View&gt;(imageName: Swift.String, label: Swift.String, destination: &#x3c4;_0_0) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.environmentObject&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.ObservableObject&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.offset(x: CoreGraphics.CGFloat, y: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.EmptyView&gt;, &lt;&lt;opaque return type of SwiftUI.View.edgesIgnoringSafeArea(SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.environmentObject&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Combine.ObservableObject&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.offset(x: CoreGraphics.CGFloat, y: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.EmptyView&gt;, &lt;&lt;opaque return type of SwiftUI.View.edgesIgnoringSafeArea(SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0)&gt;&gt; in StudentSquared2.StaffProfileView.body.getter : some"
-                  moduleName = "StudentSquared2"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aisyahnabila/Desktop/Software%20Eng/Assignment/StudentSquared2/StudentSquared2/Core/Authentication/View/StaffProfileView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "992">
-               </Location>
-            </Locations>
+            landmarkName = "AuthViewModel"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

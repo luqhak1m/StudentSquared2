@@ -82,7 +82,7 @@ struct ContentView: View {
             if let userType = viewModel.currentUser?.userType {
                 profileViewForUserType(userType)
             } else {
-                Text("Loading...")
+                Text("User type not available")
             }
         }
         .onDisappear {

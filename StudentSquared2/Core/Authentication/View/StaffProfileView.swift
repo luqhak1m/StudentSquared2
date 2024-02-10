@@ -23,7 +23,7 @@ struct StaffProfileView: View {
                 }
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: LecturerMainProfileView())
+                        createNavigationLinkWithImage(imageName: "Profile", label: "View Profile", destination: StudentProfileView())
                         createNavigationLinkWithImage(imageName: "Log", label: "Report Misconduct", destination: MisconductReport())
                         createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
                         createNavigationLinkWithImage(imageName: "QR", label: "Generate QR Code", destination: GenerateQRCode())
