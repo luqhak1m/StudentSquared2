@@ -144,6 +144,61 @@ class PointModel: Identifiable, Codable, ObservableObject {
                 }
             }
         }
+    
+    static func deductPoints(studentID: Int, pointsToDeduct: Int, completion: @escaping (Bool, Error?) -> Void) {
+            let db = Firestore.firestore()
+            
+            db.collection("student").whereField("studentID", isEqualTo: studentID).getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print("Error finding student: \(error.localizedDescription)")
+                    completion(false, error)
+                    return
+                }
+                
+                guard let document = querySnapshot?.documents.first else {
+                    print("No student found with ID: \(studentID)")
+                    completion(false, nil)
+                    return
+                }
+                
+                let studentRef = document.reference
+                
+                db.runTransaction({ (transaction, errorPointer) -> Any? in
+                    let studentDocument: DocumentSnapshot
+                    do {
+                        try studentDocument = transaction.getDocument(studentRef)
+                    } catch let fetchError as NSError {
+                        errorPointer?.pointee = fetchError
+                        return nil
+                    }
+                    
+                    guard let existingPoints = studentDocument.data()?["points"] as? Int else {
+                        let error = NSError(domain: "App", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to retrieve existing points."])
+                        errorPointer?.pointee = error
+                        return nil
+                    }
+                    
+                    let newTotal = existingPoints - pointsToDeduct
+                    if newTotal < 0 {
+                        // If this would result in negative points, handle accordingly (e.g., error or allow negative)
+                        let error = NSError(domain: "App", code: 0, userInfo: [NSLocalizedDescriptionKey: "Points deduction would result in negative total."])
+                        errorPointer?.pointee = error
+                        return nil
+                    }
+                    
+                    transaction.updateData(["points": newTotal], forDocument: studentRef)
+                    return nil
+                }) { (object, error) in
+                    if let error = error {
+                        print("Transaction failed: \(error)")
+                        completion(false, error)
+                    } else {
+                        print("Transaction successfully committed!")
+                        completion(true, nil)
+                    }
+                }
+            }
+        }
 
 }
 
@@ -348,5 +403,6 @@ class Merit : Identifiable, Codable, ObservableObject{
         
         }
 }
+
 
 

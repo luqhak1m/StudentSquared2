@@ -9,15 +9,31 @@ import SwiftUI
 
 struct UploadPrizeForm: View {
     @State private var itemName = ""
-    @State private var quantity = ""
-    @State private var requiredPoints = ""
-    @State private var showImagePicker: Bool = false
-    @State private var inputImage: UIImage?
+        @State private var quantity = ""
+        @State private var requiredPoints = ""
+        @State private var description = ""
+        @State private var showImagePicker: Bool = false
+        @State private var inputImage: UIImage?
+        @State private var selectedCategory = "Food" // Default category
 
+        let categories = ["Food", "Drinks", "Voucher", "Plushie"]
+    
     var body: some View {
         VStack {
             VStack(spacing: 10) {
-                TextField("Item Number", text: $itemName)
+                
+                Picker("Select Category", selection: $selectedCategory) {
+                   ForEach(categories, id: \.self) {
+                       Text($0)
+                   }
+               }
+                .pickerStyle(MenuPickerStyle())
+                .frame(width: 322,height: 35)
+                .background(Color.white)
+                .cornerRadius(15)
+                .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
+                
+                TextField("Item Name", text: $itemName)
                     .padding(.horizontal) // Add padding inside the text field for the text
                     .frame(width: 322, height: 35)
                     .background(Color.white)
@@ -37,6 +53,14 @@ struct UploadPrizeForm: View {
                 TextField("Required Points", text: $requiredPoints)
                     .padding(.horizontal) // Add padding inside the text field for the text
                     .frame(width: 322, height: 35)
+                    .background(Color.white)
+                    .cornerRadius(15)
+                    .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
+                    .padding(.horizontal) // Add padding outside to conform to the UI design
+                
+                TextField("Description", text: $description)
+                    .padding(.horizontal) // Add padding inside the text field for the text
+                    .frame(width: 322, height: 100)
                     .background(Color.white)
                     .cornerRadius(15)
                     .shadow(color: Color.black.opacity(0.25), radius: 4, y: 4)
@@ -87,7 +111,9 @@ struct UploadPrizeForm: View {
                         inventoryID: "SomeInventoryID", // Replace with actual inventory ID
                         points_required: requiredPoints,
                         prize_name: itemName,
-                        quantity: quantity
+                        quantity: quantity,
+                        category: selectedCategory,
+                        description: description
                     )
                 
                 prize.savePrizeDataToFirestore()
@@ -113,3 +139,4 @@ struct UploadPrizeForm: View {
 #Preview {
     UploadPrizeForm()
 }
+

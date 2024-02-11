@@ -40,7 +40,8 @@ struct MainMenuView: View {
                             } else if staff.position == "Admin" {
                                 createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: UserListView())
                                 createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
-                                createNavigationLinkWithImage(imageName: "Cart", label: "Manage Prize Inventory", destination: UploadPrizeForm())
+                                createNavigationLinkWithImage(imageName: "Cart", label: "Add Prizes", destination: UploadPrizeForm())
+                                createNavigationLinkWithImage(imageName: "Cart", label: "View Prizes", destination: UploadPrizeView())
                             } else {
                                 // Handle other staff positions if necessary
                             }

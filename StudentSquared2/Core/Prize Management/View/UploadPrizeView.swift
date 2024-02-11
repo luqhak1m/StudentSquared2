@@ -93,6 +93,9 @@ struct PrizeCard: View {
             }
         }
         .frame(width: 335, height: 184)
+        .background(Color.white) // Make sure the background is white for the shadow to stand out
+        .cornerRadius(8)
+        .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0, y: 4) // Adjust the shadow properties as needed
         .onAppear {
             prize.fetchImage { fetchedImage in
                 self.image = fetchedImage
@@ -107,3 +110,4 @@ struct PrizeCard: View {
 #Preview {
     UploadPrizeView()
 }
+

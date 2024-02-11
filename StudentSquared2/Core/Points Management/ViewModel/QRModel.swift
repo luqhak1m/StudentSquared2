@@ -106,7 +106,6 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
                           print("Error decoding QR code data")
                           completion(nil, nil)
                           return
-                      
                       }
                 
                 let qrCodeModel = QRCodeModel(
@@ -128,8 +127,8 @@ class QRCodeModel: Identifiable, Codable, ObservableObject {
             }
         }
     }
-
 }
+
 
 
 
