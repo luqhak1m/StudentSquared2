@@ -21,6 +21,9 @@
 		24C242A62B7789A300AFAF23 /* ActivityLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242A52B7789A300AFAF23 /* ActivityLogModel.swift */; };
 		24C242A82B77B32800AFAF23 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242A72B77B32800AFAF23 /* ActivityLogView.swift */; };
 		24C242AE2B78B7B300AFAF23 /* ViewScoreboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242AD2B78B7B300AFAF23 /* ViewScoreboardView.swift */; };
+		24C242B02B78FE6400AFAF23 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242AF2B78FE6400AFAF23 /* UserListView.swift */; };
+		24C242B22B78FF0400AFAF23 /* UserActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242B12B78FF0400AFAF23 /* UserActivityLogView.swift */; };
+		24C242B42B79011000AFAF23 /* UserActivityUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C242B32B79011000AFAF23 /* UserActivityUI.swift */; };
 		C910C7472B72A99A0010A9F3 /* QRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910C7462B72A99A0010A9F3 /* QRModel.swift */; };
 		C910C74E2B72C6FB0010A9F3 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910C74C2B72C6FB0010A9F3 /* ImagePicker.swift */; };
 		C910C74F2B72C6FB0010A9F3 /* MisconductReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910C74D2B72C6FB0010A9F3 /* MisconductReport.swift */; };
@@ -92,6 +95,9 @@
 		24C242A52B7789A300AFAF23 /* ActivityLogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogModel.swift; sourceTree = "<group>"; };
 		24C242A72B77B32800AFAF23 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
 		24C242AD2B78B7B300AFAF23 /* ViewScoreboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewScoreboardView.swift; sourceTree = "<group>"; };
+		24C242AF2B78FE6400AFAF23 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
+		24C242B12B78FF0400AFAF23 /* UserActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityLogView.swift; sourceTree = "<group>"; };
+		24C242B32B79011000AFAF23 /* UserActivityUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityUI.swift; sourceTree = "<group>"; };
 		C910C7462B72A99A0010A9F3 /* QRModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRModel.swift; sourceTree = "<group>"; };
 		C910C74C2B72C6FB0010A9F3 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		C910C74D2B72C6FB0010A9F3 /* MisconductReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MisconductReport.swift; sourceTree = "<group>"; };
@@ -258,6 +264,9 @@
 			isa = PBXGroup;
 			children = (
 				24C242A72B77B32800AFAF23 /* ActivityLogView.swift */,
+				24C242AF2B78FE6400AFAF23 /* UserListView.swift */,
+				24C242B12B78FF0400AFAF23 /* UserActivityLogView.swift */,
+				24C242B32B79011000AFAF23 /* UserActivityUI.swift */,
 			);
 			path = "Activity Log Views";
 			sourceTree = "<group>";
@@ -589,6 +598,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9F7C6212B72936F005B8CAA /* GenerateQRCode.swift in Sources */,
+				24C242B02B78FE6400AFAF23 /* UserListView.swift in Sources */,
 				2462D7682B71EDDA0039DB37 /* Staff.swift in Sources */,
 				C9489A962B58272500F536FC /* CustomTextField.swift in Sources */,
 				C9BE24C02B7768F3002EB576 /* StudentMainProfileView.swift in Sources */,
@@ -599,6 +609,7 @@
 				24C242AE2B78B7B300AFAF23 /* ViewScoreboardView.swift in Sources */,
 				C9F7C6202B72936F005B8CAA /* MeritDetails.swift in Sources */,
 				C9489A9C2B583BD500F536FC /* StaffRegisterView.swift in Sources */,
+				24C242B42B79011000AFAF23 /* UserActivityUI.swift in Sources */,
 				24C242A62B7789A300AFAF23 /* ActivityLogModel.swift in Sources */,
 				C9BE24B12B7764C8002EB576 /* PointHistory.swift in Sources */,
 				C9BE24BF2B7768F3002EB576 /* StaffMainProfileView.swift in Sources */,
@@ -612,6 +623,7 @@
 				C92CE7072B75221600231FE1 /* MeritPreview.swift in Sources */,
 				C910C74F2B72C6FB0010A9F3 /* MisconductReport.swift in Sources */,
 				C9BE24B32B77652D002EB576 /* PointHistoryView.swift in Sources */,
+				24C242B22B78FF0400AFAF23 /* UserActivityLogView.swift in Sources */,
 				C9489AA02B583C6900F536FC /* StudentRegisterView.swift in Sources */,
 				C910C74E2B72C6FB0010A9F3 /* ImagePicker.swift in Sources */,
 				C910C7472B72A99A0010A9F3 /* QRModel.swift in Sources */,

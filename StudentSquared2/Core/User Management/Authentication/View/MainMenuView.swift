@@ -38,7 +38,7 @@ struct MainMenuView: View {
                                 createNavigationLinkWithImage(imageName: "History", label: "View Students Activity Log", destination: MainMenuView())
                                 createNavigationLinkWithImage(imageName: "Log", label: "View Merit Request", destination: MeritPreview())
                             } else if staff.position == "Admin" {
-                                createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: MainMenuView())
+                                createNavigationLinkWithImage(imageName: "History", label: "View User Activity Log", destination: UserListView())
                                 createNavigationLinkWithImage(imageName: "Log", label: "View Misconduct Report", destination: MisconductPreview())
                                 createNavigationLinkWithImage(imageName: "Cart", label: "Manage Prize Inventory", destination: UploadPrizeForm())
                             } else {
