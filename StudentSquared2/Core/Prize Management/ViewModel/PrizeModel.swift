@@ -86,8 +86,7 @@ class PrizeModel: Identifiable, Codable, ObservableObject{
                     var prizes = [PrizeModel]()
                     for document in documents {
                         let data = document.data()
-                        guard let inventoryID = data["inventoryID"] as? String,
-                              let prize_name = data["prize_name"] as? String,
+                        guard let prize_name = data["prize_name"] as? String,
                               let points_required = data["points_required"] as? Int,
                               let quantity = data["quantity"] as? Int,
                               let imageURL = data["imageURL"] as? String,
