@@ -368,6 +368,60 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
         }
     }
 
+    static func removeMisconduct(by id: String, completion: @escaping (Bool, Error?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("misconduct").document(id).delete() { error in
+            if let error = error {
+                print("Error removing misconduct report: \(error.localizedDescription)")
+                completion(false, error)
+            } else {
+                print("Misconduct report successfully removed")
+                completion(true, nil)
+            }
+        }
+    }
+    
+    // Function to fetch the associated PointModel based on pointsID
+    func fetchAssociatedPointModel(completion: @escaping (PointModel?, Error?) -> Void) {
+        let db = Firestore.firestore()
+        // Assuming your PointModel documents include a "pointID" field
+        db.collection("points").whereField("pointID", isEqualTo: self.pointsID).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching point with ID \(self.pointsID): \(error.localizedDescription)")
+                completion(nil, error)
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                print("No point found with ID \(self.pointsID)")
+                completion(nil, nil)
+                return
+            }
+            
+            // Assuming the pointID is unique and thus only one document should be returned
+            let document = documents.first!
+            let data = document.data()
+            
+            guard
+                  let category = data["category"] as? String,
+                  let amount = data["amount"] as? Int,
+                  let reason = data["reason"] as? String else {
+                      print("Error decoding point data")
+                      completion(nil, nil)
+                      return
+                  
+                  }
+            let pointCategory = PointCategory(rawValue: category)
+            let pointModel = PointModel(
+                amount: amount,
+                category: pointCategory ?? .merit,
+                reason: reason
+            )
+            // print("Fetched student name: \(studentData.fullname)")
+            completion(pointModel, nil)
+        }
+    }
+
 
 }
 

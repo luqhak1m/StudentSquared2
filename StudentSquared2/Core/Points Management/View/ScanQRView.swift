@@ -16,6 +16,8 @@ struct ScanQR: View {
     @State private var scannedCode: String?
     @State private var scannedQRCodeModel: QRCodeModel? = nil
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var isShowingQRDetails = false // New state variable for sheet presentation
+
     
     var body: some View {
         if let student = viewModel.currentStudent, viewModel.currentUser?.userType == .student{
@@ -41,31 +43,6 @@ struct ScanQR: View {
                 .sheet(isPresented: $isPresentingScanner, content: {
                     self.scanner
                 })
-                
-                Button(action: {
-                    isPresentingImagePicker = true
-                }) {
-                    Text("Scan from Library")
-                        .font(Font.custom("Outfit", size: 18).weight(.semibold))
-                        .foregroundColor(.white)
-                        .frame(width: 218, height: 45)
-                        .background(Color(red: 0.46, green: 0.36, blue: 0.73))
-                        .cornerRadius(12)
-                }
-                .sheet(isPresented: $isPresentingImagePicker) {
-                    ImagePickerView { image in
-                        detectQRCode(in: image) { result in
-                            switch result {
-                            case .success(let code):
-                                self.scannedCode = code
-                                print("scanned code from lib")
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                            }
-                            self.isPresentingImagePicker = false
-                        }
-                    }
-                }
                 .environmentObject(viewModel)
                 if let scannedCode = scannedCode {
                     Button(action: {

@@ -57,6 +57,18 @@ struct MeritPreview: View {
                                         }
                                     })
                                 }
+                            }, onDecline: {
+                                if let point = points[merit.pointID] {
+                                    Merit.removeMerit(by: merit.id){success,error in
+                                        if (error != nil) == true{
+                                            
+                                        }else if success{
+                                            PointModel.removePoint(by: point.id){_,_ in
+                                                loadMerits()
+                                            }
+                                        }
+                                    }
+                                }
                             })
                         
                     }
@@ -164,7 +176,9 @@ struct CardViewMerit: View {
     var details: String
     var student: Student
     var onAccept: (() -> Void)?
+    var onDecline: (() -> Void)?
 
+    
     // var evidence:
     @State var showDetails = false
     @EnvironmentObject var viewModel: AuthViewModel
@@ -212,7 +226,7 @@ struct CardViewMerit: View {
                     .cornerRadius(14)
 
                     Button("Decline") {
-                        onAccept?() // Call the closure here
+                        onDecline?() // Call the closure here
                         
                         if let currentUser = viewModel.currentUser {
                             let userID = currentUser.id

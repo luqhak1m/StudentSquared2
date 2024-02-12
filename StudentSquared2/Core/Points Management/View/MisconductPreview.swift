@@ -175,17 +175,30 @@ struct CardView: View {
                     .cornerRadius(14)
 
                     Button("Decline") {
-                        onAccept?() // Call the closure here
                         report.updateAcceptedStatus(accepted: false) { success in
                            if success {
-                               // Handle the UI update or any other logic after the status is updated
-                               // print("Accepted status set to false in Firestore")
+                               MisconductReportModel.removeMisconduct(by: report.id){ success, error in
+                                   if success{
+                                       report.fetchAssociatedPointModel(){ point, error  in
+                                           if let point = point{
+                                               PointModel.removePoint(by: point.id){_,_ in 
+                                                   
+                                               }
+                                           }
+                                           
+                                       }
+                                   }else if (error != nil){
+                                       
+                                   }
+                               }
                            
                            } else {
                                // Handle the error case
                                // print("Failed to update the accepted status")
                            }
                        }
+                        onAccept?() // Call the closure here
+
                         
                     }
                     .frame(width: 103, height: 28)

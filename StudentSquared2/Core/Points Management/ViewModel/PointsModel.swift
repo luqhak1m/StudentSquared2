@@ -198,6 +198,20 @@ class PointModel: Identifiable, Codable, ObservableObject {
             }
         }
     }
+    
+    static func removePoint(by pointID: String, completion: @escaping (Bool, Error?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("points").document(pointID).delete() { error in
+            if let error = error {
+                print("Error removing point: \(error.localizedDescription)")
+                completion(false, error)
+            } else {
+                print("Point successfully removed")
+                completion(true, nil)
+            }
+        }
+    }
+
 }
 
 class Merit : Identifiable, Codable, ObservableObject{
@@ -444,4 +458,18 @@ class Merit : Identifiable, Codable, ObservableObject{
         
         
         }
+    
+    static func removeMerit(by id: String, completion: @escaping (Bool, Error?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("merit_points").document(id).delete() { error in
+            if let error = error {
+                print("Error removing merit: \(error.localizedDescription)")
+                completion(false, error)
+            } else {
+                print("Merit successfully removed")
+                completion(true, nil)
+            }
+        }
+    }
+
 }
