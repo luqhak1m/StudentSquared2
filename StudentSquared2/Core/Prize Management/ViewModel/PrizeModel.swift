@@ -179,7 +179,60 @@ class PrizeModel: Identifiable, Codable, ObservableObject{
         }
     }
     
+    func deletePrize(completion: @escaping (Bool, Error?) -> Void) {
+       let db = Firestore.firestore()
+       db.collection("prize").document(self.id).delete() { error in
+           if let error = error {
+               print("Error deleting prize: \(error.localizedDescription)")
+               completion(false, error)
+           } else {
+               print("Prize successfully deleted")
+               completion(true, nil)
+           }
+       }
+   }
+    
     
 
 }
+
+class EditPrizeViewModel: ObservableObject {
+    @Published var pointsRequired: Int?
+    @Published var prizeName: String = ""
+    @Published var quantity: Int?
+    @Published var category: String = ""
+    @Published var description: String = ""
+    var prizeID: String? // Keep track of the prize being edited
+
+    // Load existing prize data
+    func loadPrizeData(prize: PrizeModel) {
+        self.prizeID = prize.id
+        self.pointsRequired = prize.points_required
+        self.prizeName = prize.prize_name
+        self.quantity = prize.quantity
+        self.category = prize.category
+        self.description = prize.description
+    }
+
+    // Function to save changes
+    func saveChanges() {
+        guard let prizeID = prizeID else { return }
+        let db = Firestore.firestore()
+        let prizeData: [String: Any] = [
+            "points_required": pointsRequired as Any,
+            "prize_name": prizeName,
+            "quantity": quantity as Any,
+            "category": category,
+            "description": description
+        ]
+        db.collection("prize").document(prizeID).updateData(prizeData) { error in
+            if let error = error {
+                print("Error updating prize data: \(error.localizedDescription)")
+            } else {
+                print("Prize data updated successfully")
+            }
+        }
+    }
+}
+
 

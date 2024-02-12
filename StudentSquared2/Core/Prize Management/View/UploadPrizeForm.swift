@@ -128,7 +128,7 @@ struct UploadPrizeForm: View {
                 if let currentUser = viewModel.currentUser {
                     let userID = currentUser.id
                     
-                    let activityLog = ActivityLogModel(id: userID, action: "Generated QR code for \(selectedCategory)", date: Timestamp())
+                    let activityLog = ActivityLogModel(id: userID, action: "Added new prize", date: Timestamp())
                     activityLog.saveActivity()
                 } else {
                     // Handle the case where the current user is nil or doesn't have an ID

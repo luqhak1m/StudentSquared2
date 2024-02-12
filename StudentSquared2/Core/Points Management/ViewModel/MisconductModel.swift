@@ -21,6 +21,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
     var agreement2: Bool=false
     var displayed = true
     var status: Bool=false
+    var pointsID: String
     // Optional: Image URL if storing image references in Firestore
     var imageURL: String?
     
@@ -32,7 +33,8 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
          details: String,
          demeritPoints: Int?,
          agreement1: Bool,
-         agreement2: Bool) {
+         agreement2: Bool,
+         pointsID: String = "") {
         self.misconductType = misconductType
         // Convert Date to Timestamp
         self.date = Timestamp(date: date)
@@ -42,6 +44,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
         self.agreement1 = agreement1
         self.agreement2 = agreement2
         self.id = id
+        self.pointsID =  pointsID
         // self.imageURL = imageURL
     }
     
@@ -94,7 +97,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                         let data = document.data()
                         guard let misconductType = data["misconductType"] as? String,
                               let date = data["date"] as? Timestamp,
-                              let details = data["details"] as? String else {
+                              let details = data["details"] as? String else{
                             print("Error decoding document \(document.documentID)")
                             continue
                         }
@@ -262,7 +265,7 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                             }
                             
                             // Create an activity log entry for the deducted points
-                            let activityLog = ActivityLogModel(id: userID, activityID: UUID().uuidString, action: "\(self.demeritPoints) points deduction", date: Timestamp())
+                            let activityLog = ActivityLogModel(id: userID, activityID: UUID().uuidString, action: "\(self.demeritPoints ?? 0) points deduction", date: Timestamp())
                             
                             // Save the activity log
                             activityLog.saveActivity()
@@ -294,6 +297,74 @@ class MisconductReportModel: Identifiable, Codable, ObservableObject {
                     completion(true, nil)
                 }
             }
+        }
+    }
+
+    func updatePointsID(newPointsID: String, completion: @escaping (Bool, Error?) -> Void) {
+        // Update the local model first
+        self.pointsID = newPointsID
+        
+        let db = Firestore.firestore()
+        // Assuming the collection name is "misconduct" and `id` is the document ID
+        db.collection("misconduct").document(self.id).updateData(["pointsID": newPointsID]) { error in
+            if let error = error {
+                print("Error updating pointsID: \(error.localizedDescription)")
+                completion(false, error)
+            } else {
+                print("pointsID updated successfully")
+                completion(true, nil)
+            }
+        }
+    }
+    
+    static func fetchMisconductsForStudent(studentID: Int, completion: @escaping ([MisconductReportModel]) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("misconduct").whereField("studentID", isEqualTo: studentID).getDocuments { snapshot, error in
+            var misconducts: [MisconductReportModel] = []
+            if let error = error {
+                print("Error fetching misconducts: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+
+            guard let snapshot = snapshot, !snapshot.documents.isEmpty else {
+                print("No misconducts found")
+                completion([])
+                return
+            }
+
+            for document in snapshot.documents {
+                let data = document.data()
+                guard let misconductType = data["misconductType"] as? String,
+                      let date = data["date"] as? Timestamp,
+                      let details = data["details"] as? String,
+                      let demeritPoints = data["demeritPoints"] as? Int,
+                      let agreement1 = data["agreement1"] as? Bool,
+                      let agreement2 = data["agreement2"] as? Bool,
+                      let status = data["status"] as? Bool,
+                      let displayed = data["displayed"] as? Bool,
+                      let pointsID = data["pointsID"] as? String else {
+                          print("Error decoding misconduct data")
+                          continue
+                      }
+
+                let misconduct = MisconductReportModel(
+                    id: document.documentID,
+                    misconductType: misconductType,
+                    date: date.dateValue(),
+                    studentID: studentID,
+                    details: details,
+                    demeritPoints: demeritPoints,
+                    agreement1: agreement1,
+                    agreement2: agreement2,
+                    pointsID: pointsID
+                    // status: status,
+                    // displayed: displayed
+                )
+                misconducts.append(misconduct)
+            }
+
+            completion(misconducts)
         }
     }
 

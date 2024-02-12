@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
+import FirebaseFirestoreSwift
 
 struct UploadPrizeView: View {
     
@@ -29,12 +33,58 @@ struct UploadPrizeView: View {
                     }
                 }
             }
+            
+            
         }
 }
 
+struct EditPrizeView: View {
+    
+    @ObservedObject var viewModel: EditPrizeViewModel
+    @EnvironmentObject var viewModelAuth: AuthViewModel
+
+
+    var body: some View {
+        
+        NavigationView {
+            
+            Form {
+                Section(header: Text("Prize Details")) {
+                    TextField("Prize Name", text: $viewModel.prizeName)
+                    TextField("Category", text: $viewModel.category)
+                    TextField("Description", text: $viewModel.description)
+                    TextField("Points Required", value: $viewModel.pointsRequired, formatter: NumberFormatter())
+                    TextField("Quantity", value: $viewModel.quantity, formatter: NumberFormatter())
+                }
+            }
+            .navigationTitle("Edit Prize")
+            .toolbar {
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if let currentUser = viewModelAuth.currentUser{
+                        let userID = currentUser.id
+                        Button("Save") {
+                            viewModel.saveChanges()
+                            let activityLog = ActivityLogModel(id: userID, action: "Edited prize", date: Timestamp())
+                            activityLog.saveActivity()
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+
 struct PrizeCard: View {
     var prize: PrizeModel
-    @State private var image: UIImage? = nil
+        @State private var image: UIImage? = nil
+        @State private var showingEditSheet = false
+        @StateObject private var editViewModel = EditPrizeViewModel()
+    @EnvironmentObject var viewModel: AuthViewModel
+
+
 
     var body: some View {
         ZStack {
@@ -85,12 +135,40 @@ struct PrizeCard: View {
                     }
                     .padding(.horizontal,6)
                     .offset(y:22)
-
+                    
+                    VStack{
+                        Button("Edit") {
+                            editViewModel.loadPrizeData(prize: prize)
+                            showingEditSheet = true
+                        }
+                        .sheet(isPresented: $showingEditSheet) {
+                            EditPrizeView(viewModel: editViewModel)
+                        }
+                        .onAppear {
+                            prize.fetchImage { fetchedImage in
+                                self.image = fetchedImage
+                            }
+                        }
+                        
+                        if let currentUser = viewModel.currentUser {
+                            let userID = currentUser.id
+                            
+                            Button("Delete") {
+                                prize.deletePrize(){_,_ in
+                                    let activityLog = ActivityLogModel(id: userID, action: "Deleted prize", date: Timestamp())
+                                    activityLog.saveActivity()
+                                }
+                            }
+                            
+                        }
+                    }
                 }
                 .padding(.horizontal,20)
                 .padding(.vertical, 5)
 
             }
+            
+            
         }
         .frame(width: 335, height: 184)
         .background(Color.white) // Make sure the background is white for the shadow to stand out
@@ -105,6 +183,7 @@ struct PrizeCard: View {
     
     
 }
+
 
 
 #Preview {

@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct PointHistory: View {
+struct PointHistory: View{
+    
     var title: String
     var date: String
     var detail: String
@@ -44,7 +45,7 @@ struct PointHistory: View {
             pointHistoryDetailView()
         }
     }
-    
+
     // This function now generates the detail view
     // Since it's a function inside PointHistory, it can access the PointHistory variables
     func pointHistoryDetailView() -> some View {
@@ -144,9 +145,5 @@ extension PointHistory {
             .shadow(radius: 10)
         }
     }
-}
-
-#Preview {
-    PointHistory(title: "Demerit", date: "13th December 2024", detail: "Dress Code", points: "-5")
     
 }

@@ -149,12 +149,22 @@ struct CardView: View {
                        }
                         let point = PointModel(amount: pointsDeduction, category: .demerit, reason: category)
                         
+                        point.savePointTodb()
+                        
                         point.updatePointsForStudentWithQuery(studentID: studentID){ success, error in
                             if success {
                                 print("Points successfully updated for student.")
                             } else if let error = error {
                                 print("Failed to update points: \(error.localizedDescription)")
                             }
+                        }
+                        
+                        report.updatePointsID(newPointsID: point.id){ success, error in
+                            if success {
+                                   print("The pointsID was successfully updated.")
+                               } else if let error = error {
+                                   print("Failed to update pointsID: \(error.localizedDescription)")
+                               }
                         }
                        onAccept?() // Call the closure here
                     

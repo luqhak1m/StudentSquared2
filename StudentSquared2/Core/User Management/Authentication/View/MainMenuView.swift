@@ -132,17 +132,22 @@ struct MainMenuView: View {
                             .offset(x:-15)
 
                             
-                            if let student = viewModel.currentStudent, viewModel.currentUser?.userType == .student{
-                                VStack(alignment: .leading){
-                                    Text("Points: \(student.points)")
-                                        .font(Font.custom("Outfit", size: 12).weight(.semibold))
-                                        .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
-                                    Text("Position: 1")
-                                        .font(Font.custom("Outfit", size: 12).weight(.semibold))
-                                        .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73));
+                            if let student = viewModel.currentStudent, viewModel.currentUser?.userType == .student {
+                                VStack(alignment: .leading) {
+                                    NavigationLink(destination: PointHistoryView().environmentObject(viewModel)) {
+                                        VStack(alignment: .leading) {
+                                            Text("Points: \(student.points)")
+                                                .font(Font.custom("Outfit", size: 12).weight(.semibold))
+                                                .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73))
+                                            Text("Position: 1")
+                                                .font(Font.custom("Outfit", size: 12).weight(.semibold))
+                                                .foregroundColor(Color(red: 0.46, green: 0.36, blue: 0.73))
+                                        }
+                                        .offset(x: -15)
+                                    }
                                 }
-                                .offset(x:-15)
                             }
+
                         }
                         .padding(.trailing)
                     }

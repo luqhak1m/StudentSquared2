@@ -26,7 +26,6 @@ class PointModel: Identifiable, Codable, ObservableObject {
         self.amount = amount
         self.category = category
         self.id = id
-
         self.reason = reason
     }
     
@@ -146,60 +145,59 @@ class PointModel: Identifiable, Codable, ObservableObject {
         }
     
     static func deductPoints(studentID: Int, pointsToDeduct: Int, completion: @escaping (Bool, Error?) -> Void) {
-            let db = Firestore.firestore()
+        let db = Firestore.firestore()
+        
+        db.collection("student").whereField("studentID", isEqualTo: studentID).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error finding student: \(error.localizedDescription)")
+                completion(false, error)
+                return
+            }
             
-            db.collection("student").whereField("studentID", isEqualTo: studentID).getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    print("Error finding student: \(error.localizedDescription)")
-                    completion(false, error)
-                    return
-                }
-                
-                guard let document = querySnapshot?.documents.first else {
-                    print("No student found with ID: \(studentID)")
-                    completion(false, nil)
-                    return
-                }
-                
-                let studentRef = document.reference
-                
-                db.runTransaction({ (transaction, errorPointer) -> Any? in
-                    let studentDocument: DocumentSnapshot
-                    do {
-                        try studentDocument = transaction.getDocument(studentRef)
-                    } catch let fetchError as NSError {
-                        errorPointer?.pointee = fetchError
-                        return nil
-                    }
-                    
-                    guard let existingPoints = studentDocument.data()?["points"] as? Int else {
-                        let error = NSError(domain: "App", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to retrieve existing points."])
-                        errorPointer?.pointee = error
-                        return nil
-                    }
-                    
-                    let newTotal = existingPoints - pointsToDeduct
-                    if newTotal < 0 {
-                        // If this would result in negative points, handle accordingly (e.g., error or allow negative)
-                        let error = NSError(domain: "App", code: 0, userInfo: [NSLocalizedDescriptionKey: "Points deduction would result in negative total."])
-                        errorPointer?.pointee = error
-                        return nil
-                    }
-                    
-                    transaction.updateData(["points": newTotal], forDocument: studentRef)
+            guard let document = querySnapshot?.documents.first else {
+                print("No student found with ID: \(studentID)")
+                completion(false, nil)
+                return
+            }
+            
+            let studentRef = document.reference
+            
+            db.runTransaction({ (transaction, errorPointer) -> Any? in
+                let studentDocument: DocumentSnapshot
+                do {
+                    try studentDocument = transaction.getDocument(studentRef)
+                } catch let fetchError as NSError {
+                    errorPointer?.pointee = fetchError
                     return nil
-                }) { (object, error) in
-                    if let error = error {
-                        print("Transaction failed: \(error)")
-                        completion(false, error)
-                    } else {
-                        print("Transaction successfully committed!")
-                        completion(true, nil)
-                    }
+                }
+                
+                guard let existingPoints = studentDocument.data()?["points"] as? Int else {
+                    let error = NSError(domain: "App", code: 0, userInfo: [NSLocalizedDescriptionKey: "Unable to retrieve existing points."])
+                    errorPointer?.pointee = error
+                    return nil
+                }
+                
+                let newTotal = existingPoints - pointsToDeduct
+                if newTotal < 0 {
+                    // If this would result in negative points, handle accordingly (e.g., error or allow negative)
+                    let error = NSError(domain: "App", code: 0, userInfo: [NSLocalizedDescriptionKey: "Points deduction would result in negative total."])
+                    errorPointer?.pointee = error
+                    return nil
+                }
+                
+                transaction.updateData(["points": newTotal], forDocument: studentRef)
+                return nil
+            }) { (object, error) in
+                if let error = error {
+                    print("Transaction failed: \(error)")
+                    completion(false, error)
+                } else {
+                    print("Transaction successfully committed!")
+                    completion(true, nil)
                 }
             }
         }
-
+    }
 }
 
 class Merit : Identifiable, Codable, ObservableObject{
@@ -249,6 +247,50 @@ class Merit : Identifiable, Codable, ObservableObject{
         ]
         return dict
     }
+    
+    static func fetchMeritForStudent(studentID: Int, completion: @escaping ([Merit]) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("merit_points").whereField("studentID", isEqualTo: studentID).getDocuments { snapshot, error in
+            var merits: [Merit] = []
+            if let error = error {
+                print("Error fetching merits: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+
+            guard let snapshot = snapshot, !snapshot.documents.isEmpty else {
+                print("No merits found")
+                completion([])
+                return
+            }
+
+            for document in snapshot.documents {
+                let data = document.data()
+                guard let staffID = data["staffID"] as? Int,
+                      let dateScanned = data["dateScanned"] as? Timestamp,
+                      let studentID = data["studentID"] as? Int,
+                      let pointsID = data["pointsID"] as? String,
+                      let status = data["status"] as? Bool,
+                      let displayed = data["displayed"] as? Bool,
+                      let qrCodeID = data["qrCodeID"] as? String,
+                      let meritpointsID = data["meritpointsID"] as? String else {
+                          print("Error decoding misconduct data")
+                          continue
+                      }
+
+                let merit = Merit(
+                    pointID: pointsID,
+                    studentID: studentID,
+                    qrcodeID: qrCodeID,
+                    dateScanned: dateScanned.dateValue(),
+                    staffID: staffID)
+                merits.append(merit)
+            }
+
+            completion(merits)
+        }
+    }
+
     
     func fetchStudent(completion: @escaping (DocumentSnapshot?, Error?) -> Void) {
             let db = Firestore.firestore()
@@ -403,6 +445,3 @@ class Merit : Identifiable, Codable, ObservableObject{
         
         }
 }
-
-
-
