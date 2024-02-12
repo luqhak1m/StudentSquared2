@@ -14,17 +14,15 @@ import FirebaseFirestoreSwift
 class PrizeModel: Identifiable, Codable, ObservableObject{
     var id: String
     var imageURL: String
-    var inventoryID: String
     var points_required: Int?
     var prize_name: String
     var quantity: Int?
     var category: String
     var description: String
     
-    init(id: String=UUID().uuidString, imageURL: String="prize/\(UUID().uuidString).png", inventoryID: String, points_required: Int, prize_name: String, quantity: Int, category: String, description: String) {
+    init(id: String=UUID().uuidString, imageURL: String="prize/\(UUID().uuidString).png", points_required: Int, prize_name: String, quantity: Int, category: String, description: String) {
         self.id = id
         self.imageURL = imageURL
-        self.inventoryID = inventoryID
         self.points_required = points_required
         self.prize_name = prize_name
         self.quantity = quantity
@@ -40,7 +38,6 @@ class PrizeModel: Identifiable, Codable, ObservableObject{
         var prizeData: [String: Any] = [
             "prizeID": id,
             "imageURL": imageURL,
-            "inventoryID": inventoryID,
             "prize_name": prize_name,
             "category": category,
             "description": description
@@ -103,7 +100,6 @@ class PrizeModel: Identifiable, Codable, ObservableObject{
                         let prize = PrizeModel(
                             id: document.documentID, // Use the document ID from Firestore as the prize ID
                             imageURL: imageURL,
-                            inventoryID: inventoryID,
                             points_required: points_required,
                             prize_name: prize_name,
                             quantity: quantity,
@@ -148,8 +144,7 @@ class PrizeModel: Identifiable, Codable, ObservableObject{
                     completion(nil, nil)
                     return
                 }
-                    guard let inventoryID = data["inventoryID"] as? String,
-                          let prize_name = data["prize_name"] as? String,
+                    guard let prize_name = data["prize_name"] as? String,
                           let points_required = data["points_required"] as? Int,
                           let quantity = data["quantity"] as? Int,
                           let imageURL = data["imageURL"] as? String,
@@ -162,7 +157,6 @@ class PrizeModel: Identifiable, Codable, ObservableObject{
                     let prize = PrizeModel(
                         id: documentSnapshot.documentID, // Use the document ID from Firestore as the prize ID
                         imageURL: imageURL,
-                        inventoryID: inventoryID,
                         points_required: points_required,
                         prize_name: prize_name,
                         quantity: quantity,

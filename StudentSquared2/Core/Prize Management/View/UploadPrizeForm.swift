@@ -117,7 +117,6 @@ struct UploadPrizeForm: View {
                 
                 
                 let prize = PrizeModel(
-                        inventoryID: "SomeInventoryID", // Replace with actual inventory ID
                         points_required: requiredPoints,
                         prize_name: itemName,
                         quantity: quantity,
