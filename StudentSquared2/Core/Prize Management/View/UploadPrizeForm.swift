@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import CoreImage.CIFilterBuiltins
+import Firebase
+import FirebaseFirestore
 
 struct UploadPrizeForm: View {
     @State private var itemName = ""
@@ -15,6 +18,9 @@ struct UploadPrizeForm: View {
         @State private var showImagePicker: Bool = false
         @State private var inputImage: UIImage?
         @State private var selectedCategory = "Food" // Default category
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+
 
         let categories = ["Food", "Drinks", "Voucher", "Plushie"]
     
@@ -118,6 +124,16 @@ struct UploadPrizeForm: View {
                 
                 prize.savePrizeDataToFirestore()
                 prize.saveImage(image: inputImage)
+                
+                if let currentUser = viewModel.currentUser {
+                    let userID = currentUser.id
+                    
+                    let activityLog = ActivityLogModel(id: userID, action: "Generated QR code for \(selectedCategory)", date: Timestamp())
+                    activityLog.saveActivity()
+                } else {
+                    // Handle the case where the current user is nil or doesn't have an ID
+                    print("Current user is nil or doesn't have an ID")
+                }
             }) {
                 Text("Submit")
                     .frame(minWidth: 0, maxWidth: .infinity)
@@ -139,4 +155,5 @@ struct UploadPrizeForm: View {
 #Preview {
     UploadPrizeForm()
 }
+
 
