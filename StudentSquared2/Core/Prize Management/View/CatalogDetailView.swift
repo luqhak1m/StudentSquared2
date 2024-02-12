@@ -10,12 +10,11 @@ import SwiftUI
 struct CatalogDetailView: View {
     var prize: PrizeModel // Add this property
     @EnvironmentObject var viewModel: AuthViewModel
-
+    @State var showingAlert: Bool = false
     @State private var quantity: Int = 1
     var body: some View {
         if let student = viewModel.currentStudent, viewModel.currentUser?.userType == .student{
             VStack(alignment: .leading) {
-                
                 Image("Deco") // Replace with your actual image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -75,19 +74,32 @@ struct CatalogDetailView: View {
                         
                         // USED HERE
                         redemption.addToCart()
+                        showingAlert = true
                     }
                     .padding()
-                    .background(Color.purple)
+                    .background(Color(red: 0.10, green: 0, blue: 0.32))
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    .alert(isPresented: $showingAlert){
+                        Alert(
+                            title: Text("Prize Added to Cart!"),
+                            message: Text("Prize has been added to the cart.")
+                        )
+                    }
 
                     Button("Redeem Now") {
                         // Handle redeem action
                     }
                     .padding()
-                    .background(Color.blue)
+                    .background(Color(red: 0.10, green: 0, blue: 0.32))
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    .alert(isPresented: $showingAlert){
+                        Alert(
+                            title: Text("Please use the add to cart feature!"),
+                            message: Text("This feature has not been implemented yet. Sorry for the inconvenience :)")
+                        )
+                    }
                 }
                 .padding(.top, 20)
             }

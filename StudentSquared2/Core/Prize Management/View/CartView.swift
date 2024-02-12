@@ -165,13 +165,14 @@ struct CartItemView: View {
     var prize_name: String
     var prizeID: String
     var prize_points: Int
+
     @Binding var quantity: Int // Changed from @State to @Binding
     // @State var quantity: Int
     
     var body: some View {
             HStack {
                 // Left Image
-                Image("whittakers") // Replace with your actual image name
+                Image("") // Replace with your actual image name
                     .resizable()
                     .frame(width: 100, height: 100) // Adjust the size as needed
                     .cornerRadius(10)
@@ -232,6 +233,7 @@ struct CheckOutView: View{
     var prizeQuantities: [String:Int]
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var showingInsufficientBalanceAlert = false
+    @State var showingSufficientBalanceAlert: Bool = false
 
 
     
@@ -291,6 +293,8 @@ struct CheckOutView: View{
                             
                         }
                     }
+                    
+                    self.showingSufficientBalanceAlert = true
                 }else {
                     // Show alert if balance is insufficient
                     self.showingInsufficientBalanceAlert = true
@@ -304,6 +308,11 @@ struct CheckOutView: View{
                     .cornerRadius(12)
             }.alert(isPresented: $showingInsufficientBalanceAlert) {
                 Alert(title: Text("Insufficient Balance"), message: Text("You do not have enough points for this redemption."), dismissButton: .default(Text("OK")))
+            }.alert(isPresented: $showingSufficientBalanceAlert){
+                Alert(
+                    title: Text("Order placed!"),
+                    message: Text("Your order has been placed. Check the order tab for your order status.")
+                )
             }
         }
     }

@@ -42,6 +42,7 @@ struct EditPrizeView: View {
     
     @ObservedObject var viewModel: EditPrizeViewModel
     @EnvironmentObject var viewModelAuth: AuthViewModel
+    @State var showingAlert: Bool = false
 
 
     var body: some View {
@@ -67,6 +68,13 @@ struct EditPrizeView: View {
                             viewModel.saveChanges()
                             let activityLog = ActivityLogModel(id: userID, action: "Edited prize", date: Timestamp())
                             activityLog.saveActivity()
+                            showingAlert = true
+
+                        }.alert(isPresented: $showingAlert){
+                            Alert(
+                                title: Text("Prize Edited!"),
+                                message: Text("Prize information has been editet and updated in catalog.")
+                            )
                         }
                     }
                     
@@ -83,6 +91,7 @@ struct PrizeCard: View {
         @State private var showingEditSheet = false
         @StateObject private var editViewModel = EditPrizeViewModel()
     @EnvironmentObject var viewModel: AuthViewModel
+    @State var showingAlert: Bool = false
 
 
 
@@ -137,10 +146,16 @@ struct PrizeCard: View {
                     .offset(y:22)
                     
                     VStack{
-                        Button("Edit") {
+                        Button(action: {
                             editViewModel.loadPrizeData(prize: prize)
                             showingEditSheet = true
-                        }
+                        }, label: {
+                            Text("Edit")
+                                .foregroundColor(.white)
+                              .frame(width: 70, height: 50)
+                              .background(Color(red: 0.10, green: 0, blue: 0.32))
+                              .cornerRadius(12);
+                        })
                         .sheet(isPresented: $showingEditSheet) {
                             EditPrizeView(viewModel: editViewModel)
                         }
@@ -153,13 +168,24 @@ struct PrizeCard: View {
                         if let currentUser = viewModel.currentUser {
                             let userID = currentUser.id
                             
-                            Button("Delete") {
+                            Button(action: {
                                 prize.deletePrize(){_,_ in
                                     let activityLog = ActivityLogModel(id: userID, action: "Deleted prize", date: Timestamp())
                                     activityLog.saveActivity()
                                 }
+                                showingAlert = true
+                            }, label: {
+                                Text("Delete")
+                                    .foregroundColor(.white)
+                                  .frame(width: 70, height: 50)
+                                  .background(Color(red: 0.10, green: 0, blue: 0.32))
+                                  .cornerRadius(12);
+                            }).alert(isPresented: $showingAlert){
+                                Alert(
+                                    title: Text("Prize Deleted!"),
+                                    message: Text("Prize deleted from the catalog.")
+                                )
                             }
-                            
                         }
                     }
                 }

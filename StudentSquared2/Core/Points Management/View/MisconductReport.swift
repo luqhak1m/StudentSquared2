@@ -21,6 +21,9 @@ struct MisconductReport: View {
     @State private var agreement2: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel
     
+    @State var showingAlert: Bool = false
+
+    
     let options = ["Vandalism", "Academic Misconduct", "Dress Code", "Listens to The Weeknd"] // Your options here
 
     var body: some View {
@@ -161,6 +164,8 @@ struct MisconductReport: View {
                         // Handle the case where the current user is nil or doesn't have an ID
                         print("Current user is nil or doesn't have an ID")
                     }
+                    
+                    showingAlert = true
                 }, label: {
                     Text("Submit")
                         .foregroundColor(.white)
@@ -168,6 +173,12 @@ struct MisconductReport: View {
                       .background(Color(red: 0.10, green: 0, blue: 0.32))
                       .cornerRadius(12);
                 })
+                .alert(isPresented: $showingAlert){
+                    Alert(
+                        title: Text("Report Submitted!"),
+                        message: Text("Your report now will be evaluated by the Admin for further action.")
+                    )
+                }
             }
             .padding(.horizontal)
             

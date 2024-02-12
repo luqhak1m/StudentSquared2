@@ -20,6 +20,9 @@ struct UploadPrizeForm: View {
         @State private var selectedCategory = "Food" // Default category
     
     @EnvironmentObject var viewModel: AuthViewModel
+    
+    @State var showingAlert: Bool = false
+
 
 
         let categories = ["Food", "Drinks", "Voucher", "Plushie"]
@@ -134,6 +137,8 @@ struct UploadPrizeForm: View {
                     // Handle the case where the current user is nil or doesn't have an ID
                     print("Current user is nil or doesn't have an ID")
                 }
+                
+                showingAlert = true
             }) {
                 Text("Submit")
                     .frame(minWidth: 0, maxWidth: .infinity)
@@ -144,6 +149,12 @@ struct UploadPrizeForm: View {
                     .padding(.horizontal)
             }
             .padding(.top, 5)
+            .alert(isPresented: $showingAlert){
+                Alert(
+                    title: Text("Prize Added!"),
+                    message: Text("Prize are now visible in catalog and available for redemption.")
+                )
+            }
         }
     }
     

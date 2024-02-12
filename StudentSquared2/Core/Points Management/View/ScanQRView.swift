@@ -58,6 +58,7 @@ struct ScanQR: View {
                             switch result {
                             case .success(let code):
                                 self.scannedCode = code
+                                print("scanned code from lib")
                             case .failure(let error):
                                 print(error.localizedDescription)
                             }
