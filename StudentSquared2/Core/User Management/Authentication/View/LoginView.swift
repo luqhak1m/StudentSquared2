@@ -38,7 +38,7 @@ struct LoginView: View {
                         .fontWeight(.bold)
                         .padding(.top, 5)
 
-                    TextField("Email address/User ID", text: $email)
+                    TextField("Email address", text: $email)
                         
                         .padding(.leading, 10)
                         .frame(width: 219, height: 32.15)

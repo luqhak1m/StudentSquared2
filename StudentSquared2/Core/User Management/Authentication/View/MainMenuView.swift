@@ -47,7 +47,7 @@ struct MainMenuView: View {
                             }
                         } else {
                             createNavigationLinkWithImage(imageName: "QR", label: "Scan QR Code", destination: ScanQR())
-                            createNavigationLinkWithImage(imageName: "Cart", label: "Redeem Prizes", destination: UploadPrizeForm())
+                            createNavigationLinkWithImage(imageName: "Cart", label: "Redeem Prizes", destination: PrizeCatalogView())
                             createNavigationLinkWithImage(imageName: "History", label: "View Activity Log", destination: ActivityLogView())
                         }
 

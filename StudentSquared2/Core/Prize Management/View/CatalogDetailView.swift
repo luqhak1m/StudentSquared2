@@ -60,7 +60,7 @@ struct CatalogDetailView: View {
 
                 
                 
-                Text("Total Points: 92")
+                Text("Total Points: \(student.points)")
                     .font(Font.custom("Outfit", size: 20).weight(.semibold))
                     .foregroundColor(.black)
                     .padding(.top, 10)

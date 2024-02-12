@@ -11,8 +11,7 @@ struct PrizeCatalogView: View {
     @State private var selectedOption: String = "Popular"
     @State private var prizeList: [PrizeModel] = []
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
-
-    
+    @EnvironmentObject var viewModel: AuthViewModel
     
     let options: [(String, String)] = [
             ("Popular", "Popular"), // Replace icon names with actual asset names
@@ -35,9 +34,11 @@ struct PrizeCatalogView: View {
                     .font(Font.custom("Outfit", size: 20).weight(.semibold))
                     .foregroundColor(.black)
                     .multilineTextAlignment(.leading)
-                Text("Total Points: 92")
-                    .font(Font.custom("Outfit", size: 10).weight(.semibold))
-                    .foregroundColor(Color(red: 0.60, green: 0.60, blue: 0.60));
+                if let student = viewModel.currentStudent, viewModel.currentUser?.userType == .student{
+                    Text("Total Points: \(student.points)")
+                        .font(Font.custom("Outfit", size: 10).weight(.semibold))
+                        .foregroundColor(Color(red: 0.60, green: 0.60, blue: 0.60));
+                }
             }
             .padding(.leading, 40) // Add padding to the leading edge of the VStack
 
